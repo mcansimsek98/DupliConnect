@@ -13,6 +13,18 @@
 		B2A664C82A960DCD00AC8058 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A664C62A960DCD00AC8058 /* LaunchScreen.storyboard */; };
 		B2A664D82A960ED600AC8058 /* ConversationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664D62A960ED600AC8058 /* ConversationsVC.swift */; };
 		B2A664D92A960ED600AC8058 /* ConversationsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664D72A960ED600AC8058 /* ConversationsVC.xib */; };
+		B2A664DD2A9612AA00AC8058 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664DB2A9612AA00AC8058 /* LoginVC.swift */; };
+		B2A664DE2A9612AA00AC8058 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664DC2A9612AA00AC8058 /* LoginVC.xib */; };
+		B2A664E22A9612EF00AC8058 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664E02A9612EF00AC8058 /* RegisterVC.swift */; };
+		B2A664E32A9612EF00AC8058 /* RegisterVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664E12A9612EF00AC8058 /* RegisterVC.xib */; };
+		B2A664E72A96132800AC8058 /* PhotoViewerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664E52A96132800AC8058 /* PhotoViewerVC.swift */; };
+		B2A664E82A96132800AC8058 /* PhotoViewerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664E62A96132800AC8058 /* PhotoViewerVC.xib */; };
+		B2A664EC2A96134800AC8058 /* VideoPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664EA2A96134800AC8058 /* VideoPlayerVC.swift */; };
+		B2A664ED2A96134800AC8058 /* VideoPlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664EB2A96134800AC8058 /* VideoPlayerVC.xib */; };
+		B2A664F12A96138D00AC8058 /* NewConversationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664EF2A96138D00AC8058 /* NewConversationVC.swift */; };
+		B2A664F22A96138D00AC8058 /* NewConversationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664F02A96138D00AC8058 /* NewConversationVC.xib */; };
+		B2A664F62A9613C000AC8058 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664F42A9613C000AC8058 /* ProfileVC.swift */; };
+		B2A664F72A9613C000AC8058 /* ProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664F52A9613C000AC8058 /* ProfileVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +36,18 @@
 		B2A664C92A960DCD00AC8058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2A664D62A960ED600AC8058 /* ConversationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsVC.swift; sourceTree = "<group>"; };
 		B2A664D72A960ED600AC8058 /* ConversationsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationsVC.xib; sourceTree = "<group>"; };
+		B2A664DB2A9612AA00AC8058 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		B2A664DC2A9612AA00AC8058 /* LoginVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
+		B2A664E02A9612EF00AC8058 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		B2A664E12A9612EF00AC8058 /* RegisterVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterVC.xib; sourceTree = "<group>"; };
+		B2A664E52A96132800AC8058 /* PhotoViewerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerVC.swift; sourceTree = "<group>"; };
+		B2A664E62A96132800AC8058 /* PhotoViewerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoViewerVC.xib; sourceTree = "<group>"; };
+		B2A664EA2A96134800AC8058 /* VideoPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerVC.swift; sourceTree = "<group>"; };
+		B2A664EB2A96134800AC8058 /* VideoPlayerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayerVC.xib; sourceTree = "<group>"; };
+		B2A664EF2A96138D00AC8058 /* NewConversationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationVC.swift; sourceTree = "<group>"; };
+		B2A664F02A96138D00AC8058 /* NewConversationVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewConversationVC.xib; sourceTree = "<group>"; };
+		B2A664F42A9613C000AC8058 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		B2A664F52A9613C000AC8058 /* ProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +116,12 @@
 		B2A664D22A960E0400AC8058 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B2A664F32A9613AB00AC8058 /* ProfileVC */,
+				B2A664EE2A96135600AC8058 /* NewConversationVC */,
+				B2A664E92A96133300AC8058 /* VideoPlayerVC */,
+				B2A664E42A9612F800AC8058 /* PhotoViewerVC */,
+				B2A664DF2A9612D200AC8058 /* RegisterVC */,
+				B2A664DA2A96129100AC8058 /* LoginVC */,
 				B2A664D52A960EB600AC8058 /* ConversationsVC */,
 			);
 			path = Controllers;
@@ -121,6 +151,60 @@
 				B2A664D72A960ED600AC8058 /* ConversationsVC.xib */,
 			);
 			path = ConversationsVC;
+			sourceTree = "<group>";
+		};
+		B2A664DA2A96129100AC8058 /* LoginVC */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664DB2A9612AA00AC8058 /* LoginVC.swift */,
+				B2A664DC2A9612AA00AC8058 /* LoginVC.xib */,
+			);
+			path = LoginVC;
+			sourceTree = "<group>";
+		};
+		B2A664DF2A9612D200AC8058 /* RegisterVC */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664E02A9612EF00AC8058 /* RegisterVC.swift */,
+				B2A664E12A9612EF00AC8058 /* RegisterVC.xib */,
+			);
+			path = RegisterVC;
+			sourceTree = "<group>";
+		};
+		B2A664E42A9612F800AC8058 /* PhotoViewerVC */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664E52A96132800AC8058 /* PhotoViewerVC.swift */,
+				B2A664E62A96132800AC8058 /* PhotoViewerVC.xib */,
+			);
+			path = PhotoViewerVC;
+			sourceTree = "<group>";
+		};
+		B2A664E92A96133300AC8058 /* VideoPlayerVC */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664EA2A96134800AC8058 /* VideoPlayerVC.swift */,
+				B2A664EB2A96134800AC8058 /* VideoPlayerVC.xib */,
+			);
+			path = VideoPlayerVC;
+			sourceTree = "<group>";
+		};
+		B2A664EE2A96135600AC8058 /* NewConversationVC */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664EF2A96138D00AC8058 /* NewConversationVC.swift */,
+				B2A664F02A96138D00AC8058 /* NewConversationVC.xib */,
+			);
+			path = NewConversationVC;
+			sourceTree = "<group>";
+		};
+		B2A664F32A9613AB00AC8058 /* ProfileVC */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664F42A9613C000AC8058 /* ProfileVC.swift */,
+				B2A664F52A9613C000AC8058 /* ProfileVC.xib */,
+			);
+			path = ProfileVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,8 +266,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2A664C82A960DCD00AC8058 /* LaunchScreen.storyboard in Resources */,
+				B2A664F72A9613C000AC8058 /* ProfileVC.xib in Resources */,
 				B2A664C52A960DCD00AC8058 /* Assets.xcassets in Resources */,
+				B2A664DE2A9612AA00AC8058 /* LoginVC.xib in Resources */,
 				B2A664D92A960ED600AC8058 /* ConversationsVC.xib in Resources */,
+				B2A664F22A96138D00AC8058 /* NewConversationVC.xib in Resources */,
+				B2A664ED2A96134800AC8058 /* VideoPlayerVC.xib in Resources */,
+				B2A664E32A9612EF00AC8058 /* RegisterVC.xib in Resources */,
+				B2A664E82A96132800AC8058 /* PhotoViewerVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,9 +284,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2A664F12A96138D00AC8058 /* NewConversationVC.swift in Sources */,
+				B2A664EC2A96134800AC8058 /* VideoPlayerVC.swift in Sources */,
 				B2A664BC2A960DCC00AC8058 /* AppDelegate.swift in Sources */,
+				B2A664F62A9613C000AC8058 /* ProfileVC.swift in Sources */,
 				B2A664BE2A960DCC00AC8058 /* SceneDelegate.swift in Sources */,
+				B2A664DD2A9612AA00AC8058 /* LoginVC.swift in Sources */,
+				B2A664E72A96132800AC8058 /* PhotoViewerVC.swift in Sources */,
 				B2A664D82A960ED600AC8058 /* ConversationsVC.swift in Sources */,
+				B2A664E22A9612EF00AC8058 /* RegisterVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,8 +436,7 @@
 				INFOPLIST_FILE = DupliConnect/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -367,8 +462,7 @@
 				INFOPLIST_FILE = DupliConnect/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
