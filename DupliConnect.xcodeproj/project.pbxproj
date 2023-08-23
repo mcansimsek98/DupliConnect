@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		B2A664BC2A960DCC00AC8058 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */; };
 		B2A664BE2A960DCC00AC8058 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */; };
-		B2A664C02A960DCC00AC8058 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664BF2A960DCC00AC8058 /* ViewController.swift */; };
-		B2A664C32A960DCC00AC8058 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A664C12A960DCC00AC8058 /* Main.storyboard */; };
 		B2A664C52A960DCD00AC8058 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A664C42A960DCD00AC8058 /* Assets.xcassets */; };
 		B2A664C82A960DCD00AC8058 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A664C62A960DCD00AC8058 /* LaunchScreen.storyboard */; };
+		B2A664D82A960ED600AC8058 /* ConversationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664D62A960ED600AC8058 /* ConversationsVC.swift */; };
+		B2A664D92A960ED600AC8058 /* ConversationsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664D72A960ED600AC8058 /* ConversationsVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B2A664B82A960DCC00AC8058 /* DupliConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DupliConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B2A664BF2A960DCC00AC8058 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B2A664C22A960DCC00AC8058 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B2A664C42A960DCD00AC8058 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2A664C72A960DCD00AC8058 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2A664C92A960DCD00AC8058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2A664D62A960ED600AC8058 /* ConversationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsVC.swift; sourceTree = "<group>"; };
+		B2A664D72A960ED600AC8058 /* ConversationsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationsVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +56,71 @@
 		B2A664BA2A960DCC00AC8058 /* DupliConnect */ = {
 			isa = PBXGroup;
 			children = (
-				B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */,
-				B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */,
-				B2A664BF2A960DCC00AC8058 /* ViewController.swift */,
-				B2A664C12A960DCC00AC8058 /* Main.storyboard */,
-				B2A664C42A960DCD00AC8058 /* Assets.xcassets */,
-				B2A664C62A960DCD00AC8058 /* LaunchScreen.storyboard */,
+				B2A664D32A960E1800AC8058 /* Resources */,
+				B2A664D12A960DFC00AC8058 /* ViewModels */,
+				B2A664D02A960DF400AC8058 /* Models */,
+				B2A664CF2A960DE400AC8058 /* Views */,
+				B2A664D22A960E0400AC8058 /* Controllers */,
 				B2A664C92A960DCD00AC8058 /* Info.plist */,
 			);
 			path = DupliConnect;
+			sourceTree = "<group>";
+		};
+		B2A664CF2A960DE400AC8058 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664D42A960E5400AC8058 /* Storyboards */,
+				B2A664C42A960DCD00AC8058 /* Assets.xcassets */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B2A664D02A960DF400AC8058 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B2A664D12A960DFC00AC8058 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B2A664D22A960E0400AC8058 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664D52A960EB600AC8058 /* ConversationsVC */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B2A664D32A960E1800AC8058 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */,
+				B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B2A664D42A960E5400AC8058 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664C62A960DCD00AC8058 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		B2A664D52A960EB600AC8058 /* ConversationsVC */ = {
+			isa = PBXGroup;
+			children = (
+				B2A664D62A960ED600AC8058 /* ConversationsVC.swift */,
+				B2A664D72A960ED600AC8058 /* ConversationsVC.xib */,
+			);
+			path = ConversationsVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +183,7 @@
 			files = (
 				B2A664C82A960DCD00AC8058 /* LaunchScreen.storyboard in Resources */,
 				B2A664C52A960DCD00AC8058 /* Assets.xcassets in Resources */,
-				B2A664C32A960DCC00AC8058 /* Main.storyboard in Resources */,
+				B2A664D92A960ED600AC8058 /* ConversationsVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +194,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2A664C02A960DCC00AC8058 /* ViewController.swift in Sources */,
 				B2A664BC2A960DCC00AC8058 /* AppDelegate.swift in Sources */,
 				B2A664BE2A960DCC00AC8058 /* SceneDelegate.swift in Sources */,
+				B2A664D82A960ED600AC8058 /* ConversationsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B2A664C12A960DCC00AC8058 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B2A664C22A960DCC00AC8058 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B2A664C62A960DCD00AC8058 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,7 +340,6 @@
 				INFOPLIST_FILE = DupliConnect/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +367,6 @@
 				INFOPLIST_FILE = DupliConnect/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
