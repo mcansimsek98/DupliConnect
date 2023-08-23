@@ -25,6 +25,14 @@
 		B2A664F22A96138D00AC8058 /* NewConversationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664F02A96138D00AC8058 /* NewConversationVC.xib */; };
 		B2A664F62A9613C000AC8058 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664F42A9613C000AC8058 /* ProfileVC.swift */; };
 		B2A664F72A9613C000AC8058 /* ProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664F52A9613C000AC8058 /* ProfileVC.xib */; };
+		B2A664F92A96198600AC8058 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664F82A96198600AC8058 /* Extensions.swift */; };
+		B2A664FC2A965F4F00AC8058 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B2A664FB2A965F4F00AC8058 /* FirebaseAuth */; };
+		B2A664FE2A965F4F00AC8058 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = B2A664FD2A965F4F00AC8058 /* FirebaseDatabase */; };
+		B2A665022A966B2500AC8058 /* RegisterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665012A966B2500AC8058 /* RegisterVM.swift */; };
+		B2A665042A9672D900AC8058 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665032A9672D900AC8058 /* LoginVM.swift */; };
+		B2A665082A967D4D00AC8058 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665072A967D4D00AC8058 /* DatabaseManager.swift */; };
+		B2A6650A2A968F6900AC8058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2A665092A968F6900AC8058 /* GoogleService-Info.plist */; };
+		B2A665122A9691DE00AC8058 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665112A9691DE00AC8058 /* TabbarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +56,12 @@
 		B2A664F02A96138D00AC8058 /* NewConversationVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewConversationVC.xib; sourceTree = "<group>"; };
 		B2A664F42A9613C000AC8058 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		B2A664F52A9613C000AC8058 /* ProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileVC.xib; sourceTree = "<group>"; };
+		B2A664F82A96198600AC8058 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B2A665012A966B2500AC8058 /* RegisterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVM.swift; sourceTree = "<group>"; };
+		B2A665032A9672D900AC8058 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		B2A665072A967D4D00AC8058 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		B2A665092A968F6900AC8058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B2A665112A9691DE00AC8058 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2A664FE2A965F4F00AC8058 /* FirebaseDatabase in Frameworks */,
+				B2A664FC2A965F4F00AC8058 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +96,7 @@
 		B2A664BA2A960DCC00AC8058 /* DupliConnect */ = {
 			isa = PBXGroup;
 			children = (
+				B2A665092A968F6900AC8058 /* GoogleService-Info.plist */,
 				B2A664D32A960E1800AC8058 /* Resources */,
 				B2A664D12A960DFC00AC8058 /* ViewModels */,
 				B2A664D02A960DF400AC8058 /* Models */,
@@ -109,6 +126,8 @@
 		B2A664D12A960DFC00AC8058 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				B2A665012A966B2500AC8058 /* RegisterVM.swift */,
+				B2A665032A9672D900AC8058 /* LoginVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -116,6 +135,7 @@
 		B2A664D22A960E0400AC8058 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B2A665102A9691CB00AC8058 /* TabbarController */,
 				B2A664F32A9613AB00AC8058 /* ProfileVC */,
 				B2A664EE2A96135600AC8058 /* NewConversationVC */,
 				B2A664E92A96133300AC8058 /* VideoPlayerVC */,
@@ -132,6 +152,8 @@
 			children = (
 				B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */,
 				B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */,
+				B2A664F82A96198600AC8058 /* Extensions.swift */,
+				B2A665072A967D4D00AC8058 /* DatabaseManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -207,6 +229,14 @@
 			path = ProfileVC;
 			sourceTree = "<group>";
 		};
+		B2A665102A9691CB00AC8058 /* TabbarController */ = {
+			isa = PBXGroup;
+			children = (
+				B2A665112A9691DE00AC8058 /* TabbarController.swift */,
+			);
+			path = TabbarController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -223,6 +253,10 @@
 			dependencies = (
 			);
 			name = DupliConnect;
+			packageProductDependencies = (
+				B2A664FB2A965F4F00AC8058 /* FirebaseAuth */,
+				B2A664FD2A965F4F00AC8058 /* FirebaseDatabase */,
+			);
 			productName = DupliConnect;
 			productReference = B2A664B82A960DCC00AC8058 /* DupliConnect.app */;
 			productType = "com.apple.product-type.application";
@@ -251,6 +285,9 @@
 				Base,
 			);
 			mainGroup = B2A664AF2A960DCC00AC8058;
+			packageReferences = (
+				B2A664FA2A965F4F00AC8058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = B2A664B92A960DCC00AC8058 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -272,6 +309,7 @@
 				B2A664D92A960ED600AC8058 /* ConversationsVC.xib in Resources */,
 				B2A664F22A96138D00AC8058 /* NewConversationVC.xib in Resources */,
 				B2A664ED2A96134800AC8058 /* VideoPlayerVC.xib in Resources */,
+				B2A6650A2A968F6900AC8058 /* GoogleService-Info.plist in Resources */,
 				B2A664E32A9612EF00AC8058 /* RegisterVC.xib in Resources */,
 				B2A664E82A96132800AC8058 /* PhotoViewerVC.xib in Resources */,
 			);
@@ -286,13 +324,18 @@
 			files = (
 				B2A664F12A96138D00AC8058 /* NewConversationVC.swift in Sources */,
 				B2A664EC2A96134800AC8058 /* VideoPlayerVC.swift in Sources */,
+				B2A665082A967D4D00AC8058 /* DatabaseManager.swift in Sources */,
 				B2A664BC2A960DCC00AC8058 /* AppDelegate.swift in Sources */,
 				B2A664F62A9613C000AC8058 /* ProfileVC.swift in Sources */,
 				B2A664BE2A960DCC00AC8058 /* SceneDelegate.swift in Sources */,
+				B2A665022A966B2500AC8058 /* RegisterVM.swift in Sources */,
+				B2A664F92A96198600AC8058 /* Extensions.swift in Sources */,
 				B2A664DD2A9612AA00AC8058 /* LoginVC.swift in Sources */,
+				B2A665042A9672D900AC8058 /* LoginVM.swift in Sources */,
 				B2A664E72A96132800AC8058 /* PhotoViewerVC.swift in Sources */,
 				B2A664D82A960ED600AC8058 /* ConversationsVC.swift in Sources */,
 				B2A664E22A9612EF00AC8058 /* RegisterVC.swift in Sources */,
+				B2A665122A9691DE00AC8058 /* TabbarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +480,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -463,6 +507,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -498,6 +543,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B2A664FA2A965F4F00AC8058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B2A664FB2A965F4F00AC8058 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2A664FA2A965F4F00AC8058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		B2A664FD2A965F4F00AC8058 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2A664FA2A965F4F00AC8058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B2A664B02A960DCC00AC8058 /* Project object */;
 }
