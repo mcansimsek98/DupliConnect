@@ -33,6 +33,7 @@
 		B2A665082A967D4D00AC8058 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665072A967D4D00AC8058 /* DatabaseManager.swift */; };
 		B2A6650A2A968F6900AC8058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2A665092A968F6900AC8058 /* GoogleService-Info.plist */; };
 		B2A665122A9691DE00AC8058 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665112A9691DE00AC8058 /* TabbarController.swift */; };
+		B2A665172A973A9300AC8058 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = B2A665162A973A9300AC8058 /* FacebookLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		B2A665072A967D4D00AC8058 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		B2A665092A968F6900AC8058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2A665112A9691DE00AC8058 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
+		B2A665182A973E4100AC8058 /* DupliConnect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DupliConnect.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 			files = (
 				B2A664FE2A965F4F00AC8058 /* FirebaseDatabase in Frameworks */,
 				B2A664FC2A965F4F00AC8058 /* FirebaseAuth in Frameworks */,
+				B2A665172A973A9300AC8058 /* FacebookLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +99,7 @@
 		B2A664BA2A960DCC00AC8058 /* DupliConnect */ = {
 			isa = PBXGroup;
 			children = (
+				B2A665182A973E4100AC8058 /* DupliConnect.entitlements */,
 				B2A665092A968F6900AC8058 /* GoogleService-Info.plist */,
 				B2A664D32A960E1800AC8058 /* Resources */,
 				B2A664D12A960DFC00AC8058 /* ViewModels */,
@@ -256,6 +260,7 @@
 			packageProductDependencies = (
 				B2A664FB2A965F4F00AC8058 /* FirebaseAuth */,
 				B2A664FD2A965F4F00AC8058 /* FirebaseDatabase */,
+				B2A665162A973A9300AC8058 /* FacebookLogin */,
 			);
 			productName = DupliConnect;
 			productReference = B2A664B82A960DCC00AC8058 /* DupliConnect.app */;
@@ -287,6 +292,7 @@
 			mainGroup = B2A664AF2A960DCC00AC8058;
 			packageReferences = (
 				B2A664FA2A965F4F00AC8058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B2A665152A973A9300AC8058 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = B2A664B92A960DCC00AC8058 /* Products */;
 			projectDirPath = "";
@@ -472,6 +478,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DupliConnect/DupliConnect.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44MZ84GM49;
@@ -480,7 +487,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -499,6 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DupliConnect/DupliConnect.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44MZ84GM49;
@@ -507,7 +515,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -553,6 +561,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		B2A665152A973A9300AC8058 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -565,6 +581,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B2A664FA2A965F4F00AC8058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
+		};
+		B2A665162A973A9300AC8058 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2A665152A973A9300AC8058 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -22,4 +22,17 @@ class LoginVM {
             self.success?(user)
         }
     }
+    
+    func signIn(crendential: AuthCredential) {
+        FirebaseAuth.Auth.auth().signIn(with: crendential,completion: { result, err in
+            guard let result = result, err == nil else {
+                if let err = err {
+                    self.error?(err.localizedDescription)
+                }
+                return
+            }
+            let user = result.user
+            self.success?(user)
+        })
+    }
 }

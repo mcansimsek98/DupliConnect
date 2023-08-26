@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FBSDKLoginKit
 
 class LoginVC: UIViewController {
     let viewModel = LoginVM()
@@ -66,6 +67,12 @@ class LoginVC: UIViewController {
         return button
     }()
     
+    private let faceBookLoginButton: FBLoginButton = {
+        let button = FBLoginButton()
+        button.permissions = ["public_profile", "email"]
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -122,12 +129,13 @@ extension LoginVC {
         title = "Log In"
         emailTF.delegate = self
         passwordTF.delegate = self
+        faceBookLoginButton.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(didTapRegister))
         view.addSubview(scrollView)
-        scrollView.addSubViews(imageView,emailTF,passwordTF,logginButton)
+        scrollView.addSubViews(imageView,emailTF,passwordTF,logginButton,faceBookLoginButton)
         logginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
@@ -149,8 +157,15 @@ extension LoginVC {
                                   y: emailTF.bottom + 10,
                                   width: scrollView.width - 60,
                                   height: 52)
+        
         logginButton.frame = CGRect(x: 30,
                                     y: passwordTF.bottom + 20,
+                                    width: scrollView.width - 60,
+                                    height: 52)
+        
+        faceBookLoginButton.center = scrollView.center
+        faceBookLoginButton.frame = CGRect(x: 30,
+                                    y: logginButton.bottom + 20,
                                     width: scrollView.width - 60,
                                     height: 52)
     }
@@ -167,4 +182,21 @@ extension LoginVC: UITextFieldDelegate {
         return true
     }
     
+}
+
+//MARK: Facebook LoginButtonDelegate
+extension LoginVC: LoginButtonDelegate {
+    func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
+        guard let token = result?.token?.tokenString else {
+            print("User failed to log in with facebook")
+            return
+        }
+        let credential = FacebookAuthProvider.credential(withAccessToken: token)
+        self.viewModel.signIn(crendential: credential)
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
+        //no operation
+
+    }
 }
