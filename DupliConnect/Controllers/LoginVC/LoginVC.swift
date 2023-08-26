@@ -165,9 +165,9 @@ extension LoginVC {
         
         faceBookLoginButton.center = scrollView.center
         faceBookLoginButton.frame = CGRect(x: 30,
-                                    y: logginButton.bottom + 20,
-                                    width: scrollView.width - 60,
-                                    height: 52)
+                                           y: logginButton.bottom + 20,
+                                           width: scrollView.width - 60,
+                                           height: 52)
     }
 }
 
@@ -191,8 +191,7 @@ extension LoginVC: LoginButtonDelegate {
             print("User failed to log in with facebook")
             return
         }
-        let credential = FacebookAuthProvider.credential(withAccessToken: token)
-        self.viewModel.signIn(crendential: credential)
+        viewModel.singInWithFacebook(token: token)
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {

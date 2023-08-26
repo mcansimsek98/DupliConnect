@@ -132,13 +132,7 @@ class RegisterVC: UIViewController {
             alertUserRegisterError(message: "Please enter all information to create a new account.")
             return
         }
-        DatabaseManager.shared.userExists(with: email) { [weak self] exists in
-            guard let self = self, !exists else {
-                self?.alertUserRegisterError(message: "Looks like a user account for that email address already exists.")
-                return
-            }
-            viewModel.createAccount(firstName: firstName, lastName: lastName, email: email, password: password)
-        }
+        viewModel.createAccount(firstName: firstName, lastName: lastName, email: email, password: password)
     }
     
     @objc
