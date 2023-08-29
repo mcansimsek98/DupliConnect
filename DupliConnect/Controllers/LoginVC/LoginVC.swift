@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
 
 class LoginVC: UIViewController {
     let viewModel = LoginVM()
@@ -70,8 +71,22 @@ class LoginVC: UIViewController {
     private let faceBookLoginButton: FBLoginButton = {
         let button = FBLoginButton()
         button.permissions = ["public_profile", "email"]
+        button.backgroundColor = .link
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         return button
     }()
+    
+    private let googleLoginButton: GIDSignInButton = {
+        let button = GIDSignInButton()
+        button.tintColor = .link
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        return button
+    }()
+    private var loginObserver: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +97,12 @@ class LoginVC: UIViewController {
         super.viewDidLayoutSubviews()
         configureLayout()
         bindViewModel()
+    }
+    
+    deinit {
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     @objc
@@ -95,6 +116,11 @@ class LoginVC: UIViewController {
             return
         }
         viewModel.signIn(email: email, password: password)
+    }
+        
+    @objc
+    private func googleLoginButtonTapped() {
+        viewModel.singInWithGoogle(self)
     }
     
     @objc
@@ -126,6 +152,11 @@ extension LoginVC {
     }
     
     private func configure() {
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLoginNotification, object: nil, queue: .main, using: { [weak self] _ in
+            guard let self = self else { return }
+            navigationController?.dismiss(animated: true)
+        })
+        
         title = "Log In"
         emailTF.delegate = self
         passwordTF.delegate = self
@@ -135,8 +166,9 @@ extension LoginVC {
                                                             target: self,
                                                             action: #selector(didTapRegister))
         view.addSubview(scrollView)
-        scrollView.addSubViews(imageView,emailTF,passwordTF,logginButton,faceBookLoginButton)
+        scrollView.addSubViews(imageView,emailTF,passwordTF,logginButton,faceBookLoginButton,googleLoginButton)
         logginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        googleLoginButton.addTarget(self, action: #selector(googleLoginButtonTapped), for: .touchUpInside)
     }
     
     private func configureLayout() {
@@ -168,6 +200,11 @@ extension LoginVC {
                                            y: logginButton.bottom + 20,
                                            width: scrollView.width - 60,
                                            height: 52)
+        
+        googleLoginButton.frame = CGRect(x: 30,
+                                         y: faceBookLoginButton.bottom + 20,
+                                         width: scrollView.width - 60,
+                                         height: 52)
     }
 }
 
@@ -196,6 +233,8 @@ extension LoginVC: LoginButtonDelegate {
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
         //no operation
-
+        
     }
+    
+    
 }

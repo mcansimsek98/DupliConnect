@@ -31,9 +31,10 @@
 		B2A665022A966B2500AC8058 /* RegisterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665012A966B2500AC8058 /* RegisterVM.swift */; };
 		B2A665042A9672D900AC8058 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665032A9672D900AC8058 /* LoginVM.swift */; };
 		B2A665082A967D4D00AC8058 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665072A967D4D00AC8058 /* DatabaseManager.swift */; };
-		B2A6650A2A968F6900AC8058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2A665092A968F6900AC8058 /* GoogleService-Info.plist */; };
 		B2A665122A9691DE00AC8058 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665112A9691DE00AC8058 /* TabbarController.swift */; };
 		B2A665172A973A9300AC8058 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = B2A665162A973A9300AC8058 /* FacebookLogin */; };
+		B2A6651D2A9A94FA00AC8058 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = B2A6651C2A9A94FA00AC8058 /* GoogleSignIn */; };
+		B2A665232A9CD00800AC8058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2A665222A9CD00800AC8058 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,9 +62,9 @@
 		B2A665012A966B2500AC8058 /* RegisterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVM.swift; sourceTree = "<group>"; };
 		B2A665032A9672D900AC8058 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		B2A665072A967D4D00AC8058 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
-		B2A665092A968F6900AC8058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2A665112A9691DE00AC8058 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		B2A665182A973E4100AC8058 /* DupliConnect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DupliConnect.entitlements; sourceTree = "<group>"; };
+		B2A665222A9CD00800AC8058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2A664FE2A965F4F00AC8058 /* FirebaseDatabase in Frameworks */,
+				B2A6651D2A9A94FA00AC8058 /* GoogleSignIn in Frameworks */,
 				B2A664FC2A965F4F00AC8058 /* FirebaseAuth in Frameworks */,
 				B2A665172A973A9300AC8058 /* FacebookLogin in Frameworks */,
 			);
@@ -99,8 +101,8 @@
 		B2A664BA2A960DCC00AC8058 /* DupliConnect */ = {
 			isa = PBXGroup;
 			children = (
+				B2A665222A9CD00800AC8058 /* GoogleService-Info.plist */,
 				B2A665182A973E4100AC8058 /* DupliConnect.entitlements */,
-				B2A665092A968F6900AC8058 /* GoogleService-Info.plist */,
 				B2A664D32A960E1800AC8058 /* Resources */,
 				B2A664D12A960DFC00AC8058 /* ViewModels */,
 				B2A664D02A960DF400AC8058 /* Models */,
@@ -261,6 +263,7 @@
 				B2A664FB2A965F4F00AC8058 /* FirebaseAuth */,
 				B2A664FD2A965F4F00AC8058 /* FirebaseDatabase */,
 				B2A665162A973A9300AC8058 /* FacebookLogin */,
+				B2A6651C2A9A94FA00AC8058 /* GoogleSignIn */,
 			);
 			productName = DupliConnect;
 			productReference = B2A664B82A960DCC00AC8058 /* DupliConnect.app */;
@@ -293,6 +296,7 @@
 			packageReferences = (
 				B2A664FA2A965F4F00AC8058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B2A665152A973A9300AC8058 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				B2A6651B2A9A94FA00AC8058 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = B2A664B92A960DCC00AC8058 /* Products */;
 			projectDirPath = "";
@@ -315,7 +319,7 @@
 				B2A664D92A960ED600AC8058 /* ConversationsVC.xib in Resources */,
 				B2A664F22A96138D00AC8058 /* NewConversationVC.xib in Resources */,
 				B2A664ED2A96134800AC8058 /* VideoPlayerVC.xib in Resources */,
-				B2A6650A2A968F6900AC8058 /* GoogleService-Info.plist in Resources */,
+				B2A665232A9CD00800AC8058 /* GoogleService-Info.plist in Resources */,
 				B2A664E32A9612EF00AC8058 /* RegisterVC.xib in Resources */,
 				B2A664E82A96132800AC8058 /* PhotoViewerVC.xib in Resources */,
 			);
@@ -484,6 +488,8 @@
 				DEVELOPMENT_TEAM = 44MZ84GM49;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DupliConnect/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -512,6 +518,8 @@
 				DEVELOPMENT_TEAM = 44MZ84GM49;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DupliConnect/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -569,6 +577,14 @@
 				minimumVersion = 14.0.0;
 			};
 		};
+		B2A6651B2A9A94FA00AC8058 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -586,6 +602,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B2A665152A973A9300AC8058 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookLogin;
+		};
+		B2A6651C2A9A94FA00AC8058 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2A6651B2A9A94FA00AC8058 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

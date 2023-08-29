@@ -8,6 +8,8 @@
 import Foundation
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
+import Firebase
 
 class LoginVM {
     var success: ((User) -> ())?
@@ -68,5 +70,50 @@ class LoginVM {
                 self.success?(user)
             })
         })
+    }
+    
+    func singInWithGoogle(_ vc: UIViewController) {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        GIDSignIn.sharedInstance.signIn(withPresenting: vc) { result, error in
+            guard error == nil else {
+                if let err = error {
+                    self.error?(err.localizedDescription)
+                }
+                return
+            }
+            
+            guard let user = result?.user,
+                  let idToken = user.idToken?.tokenString,
+                  let email = user.profile?.email,
+                  let firstName = user.profile?.givenName,
+                  let lastName = user.profile?.familyName
+            else {
+                return
+            }
+            
+            DatabaseManager.shared.userExists(with: email, completion: { exists in
+                if !exists {
+                    DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
+                                                                        lastName: lastName,
+                                                                        emailAddress: email))
+                }
+            })
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: user.accessToken.tokenString)
+            FirebaseAuth.Auth.auth().signIn(with: credential, completion: { result, error in
+                guard let result = result, error == nil else {
+                    if let err = error {
+                        self.error?(err.localizedDescription)
+                    }
+                    return
+                }
+                let user = result.user
+                self.success?(user)
+            })
+        }
     }
 }

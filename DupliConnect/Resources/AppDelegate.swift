@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FacebookCore
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions: launchOptions
         )
         
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            guard user != nil, error == nil else {
+                if let error = error {
+                    print("Failed to sing in with google: \(error)")
+                }
+                return
+            }
+            NotificationCenter.default.post(name: .didLoginNotification, object: nil)
+        }
         return true
     }
     
@@ -35,5 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
             annotation: options[UIApplication.OpenURLOptionsKey.annotation]
         )
+        return GIDSignIn.sharedInstance.handle(url)
     }
 }
