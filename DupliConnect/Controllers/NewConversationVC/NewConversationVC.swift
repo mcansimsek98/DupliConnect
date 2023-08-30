@@ -7,23 +7,60 @@
 
 import UIKit
 
-class NewConversationVC: UIViewController {
-
+class NewConversationVC: BaseVC {
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search for Users..."
+        return searchBar
+    }()
+    
+    private let tableView: UITableView = {
+        let tv = UITableView()
+        tv.isHidden = true
+        tv.register(UITableViewCell.self,
+                    forCellReuseIdentifier: "cell")
+        return tv
+    }()
+    
+    private let noResultLabel: UILabel = {
+       let lbl = UILabel()
+        lbl.isHidden = true
+        lbl.text = "No Results"
+        lbl.textAlignment = .center
+        lbl.textColor = .green
+        lbl.font = .systemFont(ofSize: 21, weight: .medium)
+        return lbl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configure()
+        
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @objc
+    private func didTapCancelButton() {
+        self.dismiss(animated: true)
     }
-    */
+    
+}
+extension NewConversationVC {
+    private func configure() {
+        searchBar.delegate = self
+        navigationController?.navigationBar.topItem?.titleView = searchBar
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel",
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(didTapCancelButton))
+        searchBar.becomeFirstResponder()
+    }
+    
+    
+}
 
+// MARK: UISearchBarDelegate
+extension NewConversationVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
 }

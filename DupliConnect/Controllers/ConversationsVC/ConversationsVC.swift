@@ -7,17 +7,44 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
-class ConversationsVC: UIViewController {
+class ConversationsVC: BaseVC {
+        
+    private let tableView: UITableView = {
+        let tv = UITableView()
+        tv.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        return tv
+    }()
     
+    private let noConversationsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No Conversations!"
+        label.textAlignment = .center
+        label.textColor = .gray
+        label.font = .systemFont(ofSize: 21, weight: .medium)
+        label.isHidden = true
+        return label
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Chats"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
+                                                            target: self,
+                                                            action: #selector(didTapComposeButton))
+        view.addSubViews(tableView, noConversationsLabel)
+        setUpTableView()
+        fetcConversations()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         validateAuth()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureLayout()
     }
     
     private func validateAuth() {
@@ -27,6 +54,48 @@ class ConversationsVC: UIViewController {
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: false)
         }
+    }
+    
+    private func setUpTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    private func fetcConversations() {
+        
+    }
+    
+    private func configureLayout() {
+        tableView.frame = view.bounds
+    }
+    
+    @objc
+    private func didTapComposeButton() {
+        let vc = NewConversationVC()
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC, animated: true)
+    }
+}
+
+extension ConversationsVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = "Hello"
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let vc = ChatVC()
+        vc.title = "Can SMS"
+        vc.navigationItem.largeTitleDisplayMode = .never
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
