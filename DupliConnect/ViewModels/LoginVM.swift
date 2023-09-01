@@ -16,6 +16,7 @@ class LoginVM {
     var error: ((String) -> ())?
     
     func signIn(email: String, password: String) {
+        UserDefaults.standard.setValue(email, forKey: "email")
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { result, err in
             guard let result = result, err == nil else {
                 self.error?(err?.localizedDescription ?? "An unexpected error has occurred. Try again.")
@@ -47,9 +48,8 @@ class LoginVM {
                       self.error?("Faield to get email and name from fb result.")
                       return
                   }
-            print(result)
-            return
-            
+
+            UserDefaults.standard.setValue(email, forKey: "email")
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {
                     let chatUser = ChatAppUser(firstName: firstName,
@@ -115,7 +115,8 @@ class LoginVM {
             else {
                 return
             }
-            
+            UserDefaults.standard.setValue(email, forKey: "email")
+
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {
                     let chatUser = ChatAppUser(firstName: firstName,

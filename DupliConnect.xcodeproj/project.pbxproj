@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B27F72EB2A9FD8420086FA76 /* NewConversationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F72EA2A9FD8420086FA76 /* NewConversationVM.swift */; };
 		B2A664BC2A960DCC00AC8058 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */; };
 		B2A664BE2A960DCC00AC8058 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */; };
 		B2A664C52A960DCD00AC8058 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A664C42A960DCD00AC8058 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B27F72EA2A9FD8420086FA76 /* NewConversationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationVM.swift; sourceTree = "<group>"; };
 		B2A664B82A960DCC00AC8058 /* DupliConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DupliConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			children = (
 				B2A665012A966B2500AC8058 /* RegisterVM.swift */,
 				B2A665032A9672D900AC8058 /* LoginVM.swift */,
+				B27F72EA2A9FD8420086FA76 /* NewConversationVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				B2A664E72A96132800AC8058 /* PhotoViewerVC.swift in Sources */,
 				B2A664D82A960ED600AC8058 /* ConversationsVC.swift in Sources */,
 				B2A664E22A9612EF00AC8058 /* RegisterVC.swift in Sources */,
+				B27F72EB2A9FD8420086FA76 /* NewConversationVM.swift in Sources */,
 				B2A665122A9691DE00AC8058 /* TabbarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,4 +28,11 @@ class BaseVC: UIViewController {
         }
     }
 
+    func alertErrorWithDismiss(message: String) {
+        let alert = UIAlertController(title: "Woops",
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+        present(alert, animated: true)
+    }
 }

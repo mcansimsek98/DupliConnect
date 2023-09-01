@@ -86,6 +86,16 @@ class LoginVC: BaseVC {
         button.layer.masksToBounds = true
         return button
     }()
+    
+    private var orLabel: UILabel = {
+        let label = UILabel()
+        label.text = "or"
+        label.textAlignment = .center
+        label.textColor = .gray
+        label.font = .systemFont(ofSize: 17)
+        return label
+    }()
+    
     private var loginObserver: NSObjectProtocol?
     
     override func viewDidLoad() {
@@ -112,13 +122,13 @@ class LoginVC: BaseVC {
         
         guard let email = emailTF.text, let password = passwordTF.text,
               !email.isEmpty, !password.isEmpty, password.count >= 6 else {
-            alertUserLogginError(message: "Please enter all information to log in.")
+            alertErrorWithDismiss(message: "Please enter all information to log in.")
             return
         }
         self.showSpinner()
         viewModel.signIn(email: email, password: password)
     }
-        
+    
     @objc
     private func googleLoginButtonTapped() {
         viewModel.singInWithGoogle(self)
@@ -141,20 +151,12 @@ class LoginVC: BaseVC {
         viewModel.error = { [weak self] err in
             guard let self = self else { return }
             self.hideSpinner()
-            self.alertUserLogginError(message: err)
+            self.alertErrorWithDismiss(message: err)
         }
     }
 }
 
 extension LoginVC {
-    func alertUserLogginError(message: String) {
-        let alert = UIAlertController(title: "Woops",
-                                      message: message,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-        present(alert, animated: true)
-    }
-    
     private func configure() {
         loginObserver = NotificationCenter.default.addObserver(forName: .didLoginNotification, object: nil, queue: .main, using: { [weak self] _ in
             guard let self = self else { return }
@@ -170,7 +172,7 @@ extension LoginVC {
                                                             target: self,
                                                             action: #selector(didTapRegister))
         view.addSubview(scrollView)
-        scrollView.addSubViews(imageView,emailTF,passwordTF,logginButton,faceBookLoginButton,googleLoginButton)
+        scrollView.addSubViews(imageView,emailTF,passwordTF,logginButton,orLabel,faceBookLoginButton,googleLoginButton)
         logginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         googleLoginButton.addTarget(self, action: #selector(googleLoginButtonTapped), for: .touchUpInside)
     }
@@ -180,7 +182,7 @@ extension LoginVC {
         
         let size = scrollView.width / 3
         imageView.frame = CGRect(x: (scrollView.width - size)/2,
-                                 y: 20,
+                                 y: 30,
                                  width: size,
                                  height: size)
         
@@ -199,9 +201,14 @@ extension LoginVC {
                                     width: scrollView.width - 60,
                                     height: 52)
         
+        orLabel.frame = CGRect(x: 30,
+                               y: logginButton.bottom + 40,
+                               width: scrollView.width - 60,
+                               height: 52)
+        
         faceBookLoginButton.center = scrollView.center
-        faceBookLoginButton.frame = CGRect(x: 30,
-                                           y: logginButton.bottom + 20,
+        faceBookLoginButton.frame = CGRect(x: 25,
+                                           y: orLabel.bottom + 10,
                                            width: scrollView.width - 60,
                                            height: 52)
         

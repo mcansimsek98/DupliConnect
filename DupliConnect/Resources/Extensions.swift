@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 extension UIView {
     public var width: CGFloat {
@@ -42,4 +43,26 @@ extension UIView {
 
 extension Notification.Name {
     static let didLoginNotification = Notification.Name("didLoginNotification")
+}
+
+extension UIImageView {
+    func downloadImage(url: URL) {
+        self.sd_setImage(with: url) { image, err, _, _ in
+            guard let image = image, err == nil else {
+                self.image = nil
+                return
+            }
+            self.image = image
+        }
+    }
+}
+
+extension Date {
+    public static let dateFormaterMessage: DateFormatter = {
+        let formater = DateFormatter()
+        formater.dateStyle = .medium
+        formater.timeStyle = .long
+        formater.locale = .current
+        return formater
+    }()
 }

@@ -129,7 +129,7 @@ class RegisterVC: BaseVC {
               !firstName.isEmpty, !lastName.isEmpty,
               !email.isEmpty, !password.isEmpty,
               password.count >= 6 else {
-            alertUserRegisterError(message: "Please enter all information to create a new account.")
+            self.alertErrorWithDismiss(message: "Please enter all information to create a new account.")
             return
         }
         self.showSpinner()
@@ -155,21 +155,13 @@ class RegisterVC: BaseVC {
         
         viewModel.error = { [weak self] err in
             self?.hideSpinner()
-            self?.alertUserRegisterError(message: err)
+            self?.alertErrorWithDismiss(message: err)
         }
     }
 }
 
 //MARK: FUNCS
 extension RegisterVC {
-    func alertUserRegisterError(message: String) {
-        let alert = UIAlertController(title: "Woops",
-                                      message: message,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-        present(alert, animated: true)
-    }
-    
     private func configure() {
         title = "Register"
         emailTF.delegate = self
