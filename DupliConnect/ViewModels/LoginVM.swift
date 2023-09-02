@@ -16,14 +16,30 @@ class LoginVM {
     var error: ((String) -> ())?
     
     func signIn(email: String, password: String) {
-        UserDefaults.standard.setValue(email, forKey: "email")
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { result, err in
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, err in
             guard let result = result, err == nil else {
-                self.error?(err?.localizedDescription ?? "An unexpected error has occurred. Try again.")
+                self?.error?(err?.localizedDescription ?? "An unexpected error has occurred. Try again.")
                 return
             }
             let user = result.user
-            self.success?(user)
+            
+            let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+            
+            DatabaseManager.shared.getDataFor(path: safeEmail, completion: { result in
+                switch result {
+                case .success(let data):
+                    guard let userData = data as? [String: Any],
+                          let firstName = userData["firstName"],
+                          let lastName = userData["lastName"] else {
+                        return
+                    }
+                    UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+                case .failure(let err):
+                    print("Failed to read data with err \(err)")
+                }
+            })
+            UserDefaults.standard.setValue(email, forKey: "email")
+            self?.success?(user)
         }
     }
     
@@ -45,11 +61,13 @@ class LoginVM {
                   let picture = result["picture"] as? [String: Any],
                   let data = picture["data"] as? [String: Any],
                   let pictureUrl = data["url"] as? String else {
-                      self.error?("Faield to get email and name from fb result.")
-                      return
-                  }
-
+                self.error?("Faield to get email and name from fb result.")
+                return
+            }
+            
             UserDefaults.standard.setValue(email, forKey: "email")
+            UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+            
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {
                     let chatUser = ChatAppUser(firstName: firstName,
@@ -116,7 +134,8 @@ class LoginVM {
                 return
             }
             UserDefaults.standard.setValue(email, forKey: "email")
-
+            UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+            
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {
                     let chatUser = ChatAppUser(firstName: firstName,

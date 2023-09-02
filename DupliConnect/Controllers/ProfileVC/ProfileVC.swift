@@ -57,8 +57,11 @@ extension ProfileVC {
             switch result {
             case .failure(let error):
                 print(error)
+                imageView.image = nil
             case .success(let url):
-                imageView.downloadImage(url: url)
+                DispatchQueue.main.async {
+                    imageView.downloadImage(url: url)
+                }
             }
         }
         return headerView

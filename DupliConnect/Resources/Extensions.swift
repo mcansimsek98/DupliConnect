@@ -47,13 +47,14 @@ extension Notification.Name {
 
 extension UIImageView {
     func downloadImage(url: URL) {
-        self.sd_setImage(with: url) { image, err, _, _ in
-            guard let image = image, err == nil else {
-                self.image = nil
-                return
-            }
-            self.image = image
-        }
+        self.sd_setImage(with: url, completed: nil)
+//        { image, err, _, _ in
+//            guard let image = image, err == nil else {
+//                self.image = nil
+//                return
+//            }
+//            self.image = image
+//        }
     }
 }
 

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B27F72EB2A9FD8420086FA76 /* NewConversationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F72EA2A9FD8420086FA76 /* NewConversationVM.swift */; };
+		B27F72ED2AA1F4490086FA76 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F72EC2AA1F4490086FA76 /* ConversationTableViewCell.swift */; };
+		B27F72F02AA2632B0086FA76 /* ChatAppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F72EF2AA2632B0086FA76 /* ChatAppUser.swift */; };
+		B27F72F22AA263C00086FA76 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F72F12AA263C00086FA76 /* Message.swift */; };
 		B2A664BC2A960DCC00AC8058 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */; };
 		B2A664BE2A960DCC00AC8058 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */; };
 		B2A664C52A960DCD00AC8058 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A664C42A960DCD00AC8058 /* Assets.xcassets */; };
@@ -51,6 +54,9 @@
 
 /* Begin PBXFileReference section */
 		B27F72EA2A9FD8420086FA76 /* NewConversationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationVM.swift; sourceTree = "<group>"; };
+		B27F72EC2AA1F4490086FA76 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		B27F72EF2AA2632B0086FA76 /* ChatAppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUser.swift; sourceTree = "<group>"; };
+		B27F72F12AA263C00086FA76 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B2A664B82A960DCC00AC8058 /* DupliConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DupliConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +112,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B27F72EE2AA1F4510086FA76 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				B27F72EC2AA1F4490086FA76 /* ConversationTableViewCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
 		B2A664AF2A960DCC00AC8058 = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +158,7 @@
 			children = (
 				B2A664D42A960E5400AC8058 /* Storyboards */,
 				B2A664C42A960DCD00AC8058 /* Assets.xcassets */,
+				B27F72EE2AA1F4510086FA76 /* TableViewCells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -151,6 +166,8 @@
 		B2A664D02A960DF400AC8058 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B27F72EF2AA2632B0086FA76 /* ChatAppUser.swift */,
+				B27F72F12AA263C00086FA76 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,11 +414,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B27F72F02AA2632B0086FA76 /* ChatAppUser.swift in Sources */,
 				B2A665402A9E88F300AC8058 /* StorageManager.swift in Sources */,
 				B2A664F12A96138D00AC8058 /* NewConversationVC.swift in Sources */,
 				B2A664EC2A96134800AC8058 /* VideoPlayerVC.swift in Sources */,
 				B2A665082A967D4D00AC8058 /* DatabaseManager.swift in Sources */,
 				B2A664BC2A960DCC00AC8058 /* AppDelegate.swift in Sources */,
+				B27F72F22AA263C00086FA76 /* Message.swift in Sources */,
 				B2A664F62A9613C000AC8058 /* ProfileVC.swift in Sources */,
 				B2A664BE2A960DCC00AC8058 /* SceneDelegate.swift in Sources */,
 				B2A665022A966B2500AC8058 /* RegisterVM.swift in Sources */,
@@ -411,6 +430,7 @@
 				B2A665042A9672D900AC8058 /* LoginVM.swift in Sources */,
 				B2A665392A9DDF7A00AC8058 /* BaseVC.swift in Sources */,
 				B2A664E72A96132800AC8058 /* PhotoViewerVC.swift in Sources */,
+				B27F72ED2AA1F4490086FA76 /* ConversationTableViewCell.swift in Sources */,
 				B2A664D82A960ED600AC8058 /* ConversationsVC.swift in Sources */,
 				B2A664E22A9612EF00AC8058 /* RegisterVC.swift in Sources */,
 				B27F72EB2A9FD8420086FA76 /* NewConversationVM.swift in Sources */,
