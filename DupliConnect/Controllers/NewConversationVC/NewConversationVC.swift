@@ -10,10 +10,10 @@ import UIKit
 class NewConversationVC: BaseVC {
     private let viewModel = NewConversationVM()
     private var users = [[String: String]]()
-    private var filterUsers = [[String: String]]()
+    private var filterUsers = [SearchResult]()
     private var hasFetched = false
     
-    public var completion: (([String:String]) -> (Void))?
+    public var completion: ((SearchResult) -> (Void))?
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -24,8 +24,8 @@ class NewConversationVC: BaseVC {
     private let tableView: UITableView = {
         let tv = UITableView()
         tv.isHidden = true
-        tv.register(UITableViewCell.self,
-                    forCellReuseIdentifier: "cell")
+        tv.register(NewConversationTableViewCell.self,
+                    forCellReuseIdentifier: NewConversationTableViewCell.identifier)
         return tv
     }()
     
@@ -131,8 +131,8 @@ extension NewConversationVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = filterUsers[indexPath.row]["name"]
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewConversationTableViewCell.identifier, for: indexPath) as! NewConversationTableViewCell
+        cell.configure(with: filterUsers[indexPath.row])
         return cell
     }
     
@@ -143,5 +143,9 @@ extension NewConversationVC: UITableViewDelegate, UITableViewDataSource {
         dismiss(animated: true, completion: { [weak self] in
             self?.completion?(targetUserData)
         })
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (view.width / 8) + 20
     }
 }

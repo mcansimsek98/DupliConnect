@@ -6,7 +6,15 @@
 //
 
 import Foundation
+import UIKit
 import MessageKit
+
+struct Media: MediaItem {
+    var url: URL?
+    var image: UIImage?
+    var placeholderImage: UIImage
+    var size: CGSize
+}
 
 struct Message: MessageType {
     public var sender: MessageKit.SenderType

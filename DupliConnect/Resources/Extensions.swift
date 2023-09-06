@@ -48,13 +48,6 @@ extension Notification.Name {
 extension UIImageView {
     func downloadImage(url: URL) {
         self.sd_setImage(with: url, completed: nil)
-//        { image, err, _, _ in
-//            guard let image = image, err == nil else {
-//                self.image = nil
-//                return
-//            }
-//            self.image = image
-//        }
     }
 }
 
@@ -66,4 +59,16 @@ extension Date {
         formater.locale = .current
         return formater
     }()
+}
+
+
+extension Int {
+    public static func roundToNearestEvenInteger(_ number: Double) -> Double {
+        let roundedNumber = round(number)
+        if roundedNumber.truncatingRemainder(dividingBy: 2) == 0 {
+            return roundedNumber
+        } else {
+            return roundedNumber + 1
+        }
+    }
 }

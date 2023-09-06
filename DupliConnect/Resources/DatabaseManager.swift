@@ -40,8 +40,8 @@ extension DatabaseManager {
         var safeEmail = email.replacingOccurrences(of: ".", with: "-")
         safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
         
-        database.child(safeEmail).observeSingleEvent(of: .value) { shapshot in
-            guard shapshot.value as? String != nil else {
+        database.child(safeEmail).observeSingleEvent(of: .value) { snapshot in
+            guard let dictionary = snapshot.value as? [String: Any], !dictionary.isEmpty else {
                 completion(false)
                 return
             }
@@ -352,8 +352,18 @@ extension DatabaseManager {
                                       placeholderImage: placeholder,
                                       size: CGSize(width: 300, height: 300))
                     kind = .photo(media)
+                case "video":
+                    guard let videoUrl = URL(string: message),
+                    let placeholder = UIImage(systemName: "plus") else {
+                        return nil
+                    }
+                    let media = Media(url: videoUrl,
+                                      image: nil,
+                                      placeholderImage: placeholder,
+                                      size: CGSize(width: 300, height: 300))
+                    kind = .video(media)
                 default:
-                    break
+                    kind = .text(message)
                 }
                 guard let finalKind = kind else {
                     return nil
@@ -403,7 +413,10 @@ extension DatabaseManager {
                     content = targetUrlStr
                 }
                 break
-            case .video(_):
+            case .video(let mediaItem):
+                if let targetUrlStr = mediaItem.url?.absoluteString {
+                    content = targetUrlStr
+                }
                 break
             case .location(_):
                 break

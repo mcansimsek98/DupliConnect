@@ -111,12 +111,9 @@ class ConversationsVC: BaseVC {
         present(navVC, animated: true)
     }
     
-    private func createNewConversation(result: [String: String]) {
-        guard let name = result["name"], let email = result["email"] else {
-            return
-        }
-        let vc = ChatVC(with: email,id: nil)
-        vc.title = name
+    private func createNewConversation(result: SearchResult) {
+        let vc = ChatVC(with: result.email,id: nil)
+        vc.title = result.name
         vc.isNewConservation = true
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.hidesBottomBarWhenPushed = true
@@ -148,6 +145,6 @@ extension ConversationsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return (view.width / 4) - 20
     }
 }
