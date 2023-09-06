@@ -24,6 +24,7 @@ struct LatestMessage {
 
 class ConversationsVC: BaseVC {
     private var conversations = [Conversation]()
+    private var loginObserver: NSObjectProtocol?
         
     private let tableView: UITableView = {
         let tv = UITableView()
@@ -49,6 +50,11 @@ class ConversationsVC: BaseVC {
         view.addSubViews(tableView, noConversationsLabel)
         setUpTableView()
         startListeningForConversations()
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLoginNotification, object: nil, queue: .main, using: { [weak self] _ in
+            guard let self = self else { return }
+            startListeningForConversations()
+        })
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,6 +85,10 @@ class ConversationsVC: BaseVC {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
             return
         }
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        
         let safeUserEmail = DatabaseManager.safeEmail(emailAddress: email)
         DatabaseManager.shared.getAllConversations(for: safeUserEmail, completion: { [weak self] result in
             switch result {
@@ -92,7 +102,6 @@ class ConversationsVC: BaseVC {
                 }
             case .failure(let err):
                 print(err)
-//                self?.alertErrorWithDismiss(message: err.localizedDescription)
             }
         })
     }
@@ -105,19 +114,49 @@ class ConversationsVC: BaseVC {
     private func didTapComposeButton() {
         let vc = NewConversationVC()
         vc.completion = { [weak self] result in
-            self?.createNewConversation(result: result)
+            guard let self = self else { return }
+            
+            let currnetConversations = conversations
+            if let targetConversation = currnetConversations.first(where: {
+                $0.otherUserEmail == DatabaseManager.safeEmail(emailAddress: result.email)
+            }) {
+                let vc = ChatVC(with: targetConversation.otherUserEmail,id: targetConversation.id)
+                vc.title = targetConversation.name
+                vc.isNewConservation = false
+                vc.navigationItem.largeTitleDisplayMode = .never
+                vc.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(vc, animated: true)
+            }else {
+                self.createNewConversation(result: result)
+            }
         }
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
     }
     
     private func createNewConversation(result: SearchResult) {
-        let vc = ChatVC(with: result.email,id: nil)
-        vc.title = result.name
-        vc.isNewConservation = true
-        vc.navigationItem.largeTitleDisplayMode = .never
-        vc.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(vc, animated: true)
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: result.email)
+        
+        DatabaseManager.shared.conversationExists(with: safeEmail, completion: { [weak self] res in
+            guard let self = self else { return }
+            
+            switch res {
+            case .success(let conversationId):
+                let vc = ChatVC(with: result.email, id: conversationId)
+                vc.title = result.name
+                vc.isNewConservation = false
+                vc.navigationItem.largeTitleDisplayMode = .never
+                vc.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(vc, animated: true)
+            case .failure(_):
+                let vc = ChatVC(with: result.email,id: nil)
+                vc.title = result.name
+                vc.isNewConservation = true
+                vc.navigationItem.largeTitleDisplayMode = .never
+                vc.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        })
     }
 }
 
@@ -136,15 +175,37 @@ extension ConversationsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let model = conversations[indexPath.row]
-
+        openConversation(model)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let conversationId = conversations[indexPath.row].id
+        
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            DatabaseManager.shared.deleteConversation(conversationId: conversationId, completion: { [weak self] success in
+                if success {
+                    self?.conversations.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .left)
+                }
+            })
+            tableView.endUpdates()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (view.width / 4) - 10
+    }
+    
+    func openConversation(_ model: Conversation) {
         let vc = ChatVC(with: model.otherUserEmail, id: model.id)
         vc.title = model.name
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (view.width / 4) - 20
     }
 }

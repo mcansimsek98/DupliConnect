@@ -56,7 +56,7 @@ final class ConversationTableViewCell: UITableViewCell {
         
         userMessageLbl.frame = CGRect(x: userImageView.right + 10,
                                       y: userNameLbl.bottom + 4,
-                                      width: (contentWidth - 20) - userImageView.width,
+                                      width: (contentWidth - 30) - userImageView.width,
                                       height: userImageView.height - userNameLbl.height)
     }
     
