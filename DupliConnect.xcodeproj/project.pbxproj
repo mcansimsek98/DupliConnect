@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B27675822AAE005300C723A1 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27675812AAE005300C723A1 /* ProfileTableViewCell.swift */; };
+		B27675842AAE007300C723A1 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27675832AAE007300C723A1 /* ProfileModel.swift */; };
 		B27F72EB2A9FD8420086FA76 /* NewConversationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F72EA2A9FD8420086FA76 /* NewConversationVM.swift */; };
 		B27F72ED2AA1F4490086FA76 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F72EC2AA1F4490086FA76 /* ConversationTableViewCell.swift */; };
 		B27F72F02AA2632B0086FA76 /* ChatAppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27F72EF2AA2632B0086FA76 /* ChatAppUser.swift */; };
@@ -14,22 +16,19 @@
 		B2A213742AA8A2B700537663 /* ChatBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A213732AA8A2B700537663 /* ChatBaseVC.swift */; };
 		B2A213762AA8B77900537663 /* NewConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A213752AA8B77900537663 /* NewConversationTableViewCell.swift */; };
 		B2A213782AA8B83200537663 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A213772AA8B83200537663 /* SearchResult.swift */; };
+		B2A2137A2AA90F7600537663 /* LocationPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A213792AA90F7600537663 /* LocationPickerVC.swift */; };
+		B2A2137F2AAB139D00537663 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B2A2137E2AAB139D00537663 /* FirebaseCrashlytics */; };
+		B2A213822AADED0F00537663 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A213812AADED0F00537663 /* ProfileVM.swift */; };
 		B2A664BC2A960DCC00AC8058 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */; };
 		B2A664BE2A960DCC00AC8058 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */; };
 		B2A664C52A960DCD00AC8058 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A664C42A960DCD00AC8058 /* Assets.xcassets */; };
 		B2A664C82A960DCD00AC8058 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A664C62A960DCD00AC8058 /* LaunchScreen.storyboard */; };
 		B2A664D82A960ED600AC8058 /* ConversationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664D62A960ED600AC8058 /* ConversationsVC.swift */; };
-		B2A664D92A960ED600AC8058 /* ConversationsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664D72A960ED600AC8058 /* ConversationsVC.xib */; };
 		B2A664DD2A9612AA00AC8058 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664DB2A9612AA00AC8058 /* LoginVC.swift */; };
-		B2A664DE2A9612AA00AC8058 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664DC2A9612AA00AC8058 /* LoginVC.xib */; };
 		B2A664E22A9612EF00AC8058 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664E02A9612EF00AC8058 /* RegisterVC.swift */; };
-		B2A664E32A9612EF00AC8058 /* RegisterVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664E12A9612EF00AC8058 /* RegisterVC.xib */; };
 		B2A664E72A96132800AC8058 /* PhotoViewerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664E52A96132800AC8058 /* PhotoViewerVC.swift */; };
-		B2A664E82A96132800AC8058 /* PhotoViewerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664E62A96132800AC8058 /* PhotoViewerVC.xib */; };
 		B2A664EC2A96134800AC8058 /* VideoPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664EA2A96134800AC8058 /* VideoPlayerVC.swift */; };
-		B2A664ED2A96134800AC8058 /* VideoPlayerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664EB2A96134800AC8058 /* VideoPlayerVC.xib */; };
 		B2A664F12A96138D00AC8058 /* NewConversationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664EF2A96138D00AC8058 /* NewConversationVC.swift */; };
-		B2A664F22A96138D00AC8058 /* NewConversationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664F02A96138D00AC8058 /* NewConversationVC.xib */; };
 		B2A664F62A9613C000AC8058 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664F42A9613C000AC8058 /* ProfileVC.swift */; };
 		B2A664F72A9613C000AC8058 /* ProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A664F52A9613C000AC8058 /* ProfileVC.xib */; };
 		B2A664F92A96198600AC8058 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A664F82A96198600AC8058 /* Extensions.swift */; };
@@ -48,7 +47,6 @@
 		B2A6652E2A9DDB3C00AC8058 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B2A6652D2A9DDB3C00AC8058 /* RealmSwift */; };
 		B2A665312A9DDB5B00AC8058 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = B2A665302A9DDB5B00AC8058 /* SDWebImage */; };
 		B2A665352A9DDEF700AC8058 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665332A9DDEF700AC8058 /* ChatVC.swift */; };
-		B2A665362A9DDEF700AC8058 /* ChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A665342A9DDEF700AC8058 /* ChatVC.xib */; };
 		B2A665392A9DDF7A00AC8058 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A665382A9DDF7A00AC8058 /* BaseVC.swift */; };
 		B2A6653C2A9E87A400AC8058 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B2A6653B2A9E87A400AC8058 /* FirebaseStorage */; };
 		B2A6653E2A9E880500AC8058 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B2A6653D2A9E880500AC8058 /* FirebaseFirestore */; };
@@ -56,6 +54,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B27675812AAE005300C723A1 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		B27675832AAE007300C723A1 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		B27F72EA2A9FD8420086FA76 /* NewConversationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationVM.swift; sourceTree = "<group>"; };
 		B27F72EC2AA1F4490086FA76 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		B27F72EF2AA2632B0086FA76 /* ChatAppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUser.swift; sourceTree = "<group>"; };
@@ -63,6 +63,8 @@
 		B2A213732AA8A2B700537663 /* ChatBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBaseVC.swift; sourceTree = "<group>"; };
 		B2A213752AA8B77900537663 /* NewConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationTableViewCell.swift; sourceTree = "<group>"; };
 		B2A213772AA8B83200537663 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		B2A213792AA90F7600537663 /* LocationPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerVC.swift; sourceTree = "<group>"; };
+		B2A213812AADED0F00537663 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		B2A664B82A960DCC00AC8058 /* DupliConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DupliConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A664BB2A960DCC00AC8058 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2A664BD2A960DCC00AC8058 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,17 +72,11 @@
 		B2A664C72A960DCD00AC8058 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2A664C92A960DCD00AC8058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2A664D62A960ED600AC8058 /* ConversationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsVC.swift; sourceTree = "<group>"; };
-		B2A664D72A960ED600AC8058 /* ConversationsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationsVC.xib; sourceTree = "<group>"; };
 		B2A664DB2A9612AA00AC8058 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		B2A664DC2A9612AA00AC8058 /* LoginVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		B2A664E02A9612EF00AC8058 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
-		B2A664E12A9612EF00AC8058 /* RegisterVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterVC.xib; sourceTree = "<group>"; };
 		B2A664E52A96132800AC8058 /* PhotoViewerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerVC.swift; sourceTree = "<group>"; };
-		B2A664E62A96132800AC8058 /* PhotoViewerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoViewerVC.xib; sourceTree = "<group>"; };
 		B2A664EA2A96134800AC8058 /* VideoPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerVC.swift; sourceTree = "<group>"; };
-		B2A664EB2A96134800AC8058 /* VideoPlayerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayerVC.xib; sourceTree = "<group>"; };
 		B2A664EF2A96138D00AC8058 /* NewConversationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationVC.swift; sourceTree = "<group>"; };
-		B2A664F02A96138D00AC8058 /* NewConversationVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewConversationVC.xib; sourceTree = "<group>"; };
 		B2A664F42A9613C000AC8058 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		B2A664F52A9613C000AC8058 /* ProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileVC.xib; sourceTree = "<group>"; };
 		B2A664F82A96198600AC8058 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -91,7 +87,6 @@
 		B2A665182A973E4100AC8058 /* DupliConnect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DupliConnect.entitlements; sourceTree = "<group>"; };
 		B2A665222A9CD00800AC8058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2A665332A9DDEF700AC8058 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
-		B2A665342A9DDEF700AC8058 /* ChatVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatVC.xib; sourceTree = "<group>"; };
 		B2A665382A9DDF7A00AC8058 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		B2A6653F2A9E88F300AC8058 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +105,7 @@
 				B2A664FC2A965F4F00AC8058 /* FirebaseAuth in Frameworks */,
 				B2A665312A9DDB5B00AC8058 /* SDWebImage in Frameworks */,
 				B2A665172A973A9300AC8058 /* FacebookLogin in Frameworks */,
+				B2A2137F2AAB139D00537663 /* FirebaseCrashlytics in Frameworks */,
 				B2A6653E2A9E880500AC8058 /* FirebaseFirestore in Frameworks */,
 				B2A665262A9DD9A600AC8058 /* MessageKit in Frameworks */,
 			);
@@ -118,13 +114,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B27F72EE2AA1F4510086FA76 /* TableViewCells */ = {
+		B27675802AAE004000C723A1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B27675812AAE005300C723A1 /* ProfileTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B2A2137B2AA90F7C00537663 /* LocationPickerVC */ = {
+			isa = PBXGroup;
+			children = (
+				B2A213792AA90F7600537663 /* LocationPickerVC.swift */,
+			);
+			path = LocationPickerVC;
+			sourceTree = "<group>";
+		};
+		B2A2137C2AA9100700537663 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				B27F72EC2AA1F4490086FA76 /* ConversationTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B2A2137D2AA9101900537663 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
 				B2A213752AA8B77900537663 /* NewConversationTableViewCell.swift */,
 			);
-			path = TableViewCells;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		B2A664AF2A960DCC00AC8058 = {
@@ -165,7 +184,6 @@
 			children = (
 				B2A664D42A960E5400AC8058 /* Storyboards */,
 				B2A664C42A960DCD00AC8058 /* Assets.xcassets */,
-				B27F72EE2AA1F4510086FA76 /* TableViewCells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +194,7 @@
 				B27F72EF2AA2632B0086FA76 /* ChatAppUser.swift */,
 				B27F72F12AA263C00086FA76 /* Message.swift */,
 				B2A213772AA8B83200537663 /* SearchResult.swift */,
+				B27675832AAE007300C723A1 /* ProfileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,6 +205,7 @@
 				B2A665012A966B2500AC8058 /* RegisterVM.swift */,
 				B2A665032A9672D900AC8058 /* LoginVM.swift */,
 				B27F72EA2A9FD8420086FA76 /* NewConversationVM.swift */,
+				B2A213812AADED0F00537663 /* ProfileVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -193,6 +213,7 @@
 		B2A664D22A960E0400AC8058 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B2A2137B2AA90F7C00537663 /* LocationPickerVC */,
 				B2A665322A9DDED600AC8058 /* ChatVC */,
 				B2A665102A9691CB00AC8058 /* TabbarController */,
 				B2A664F32A9613AB00AC8058 /* ProfileVC */,
@@ -229,8 +250,8 @@
 		B2A664D52A960EB600AC8058 /* ConversationsVC */ = {
 			isa = PBXGroup;
 			children = (
+				B2A2137C2AA9100700537663 /* Cell */,
 				B2A664D62A960ED600AC8058 /* ConversationsVC.swift */,
-				B2A664D72A960ED600AC8058 /* ConversationsVC.xib */,
 			);
 			path = ConversationsVC;
 			sourceTree = "<group>";
@@ -239,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				B2A664DB2A9612AA00AC8058 /* LoginVC.swift */,
-				B2A664DC2A9612AA00AC8058 /* LoginVC.xib */,
 			);
 			path = LoginVC;
 			sourceTree = "<group>";
@@ -248,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				B2A664E02A9612EF00AC8058 /* RegisterVC.swift */,
-				B2A664E12A9612EF00AC8058 /* RegisterVC.xib */,
 			);
 			path = RegisterVC;
 			sourceTree = "<group>";
@@ -257,7 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				B2A664E52A96132800AC8058 /* PhotoViewerVC.swift */,
-				B2A664E62A96132800AC8058 /* PhotoViewerVC.xib */,
 			);
 			path = PhotoViewerVC;
 			sourceTree = "<group>";
@@ -266,7 +284,6 @@
 			isa = PBXGroup;
 			children = (
 				B2A664EA2A96134800AC8058 /* VideoPlayerVC.swift */,
-				B2A664EB2A96134800AC8058 /* VideoPlayerVC.xib */,
 			);
 			path = VideoPlayerVC;
 			sourceTree = "<group>";
@@ -274,8 +291,8 @@
 		B2A664EE2A96135600AC8058 /* NewConversationVC */ = {
 			isa = PBXGroup;
 			children = (
+				B2A2137D2AA9101900537663 /* Cell */,
 				B2A664EF2A96138D00AC8058 /* NewConversationVC.swift */,
-				B2A664F02A96138D00AC8058 /* NewConversationVC.xib */,
 			);
 			path = NewConversationVC;
 			sourceTree = "<group>";
@@ -283,6 +300,7 @@
 		B2A664F32A9613AB00AC8058 /* ProfileVC */ = {
 			isa = PBXGroup;
 			children = (
+				B27675802AAE004000C723A1 /* Cell */,
 				B2A664F42A9613C000AC8058 /* ProfileVC.swift */,
 				B2A664F52A9613C000AC8058 /* ProfileVC.xib */,
 			);
@@ -301,7 +319,6 @@
 			isa = PBXGroup;
 			children = (
 				B2A665332A9DDEF700AC8058 /* ChatVC.swift */,
-				B2A665342A9DDEF700AC8058 /* ChatVC.xib */,
 			);
 			path = ChatVC;
 			sourceTree = "<group>";
@@ -332,6 +349,7 @@
 				B2A664B42A960DCC00AC8058 /* Sources */,
 				B2A664B52A960DCC00AC8058 /* Frameworks */,
 				B2A664B62A960DCC00AC8058 /* Resources */,
+				B2A213802AAB15A500537663 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -350,6 +368,7 @@
 				B2A665302A9DDB5B00AC8058 /* SDWebImage */,
 				B2A6653B2A9E87A400AC8058 /* FirebaseStorage */,
 				B2A6653D2A9E880500AC8058 /* FirebaseFirestore */,
+				B2A2137E2AAB139D00537663 /* FirebaseCrashlytics */,
 			);
 			productName = DupliConnect;
 			productReference = B2A664B82A960DCC00AC8058 /* DupliConnect.app */;
@@ -405,18 +424,31 @@
 				B2A664C82A960DCD00AC8058 /* LaunchScreen.storyboard in Resources */,
 				B2A664F72A9613C000AC8058 /* ProfileVC.xib in Resources */,
 				B2A664C52A960DCD00AC8058 /* Assets.xcassets in Resources */,
-				B2A664DE2A9612AA00AC8058 /* LoginVC.xib in Resources */,
-				B2A664D92A960ED600AC8058 /* ConversationsVC.xib in Resources */,
-				B2A664F22A96138D00AC8058 /* NewConversationVC.xib in Resources */,
-				B2A664ED2A96134800AC8058 /* VideoPlayerVC.xib in Resources */,
 				B2A665232A9CD00800AC8058 /* GoogleService-Info.plist in Resources */,
-				B2A665362A9DDEF700AC8058 /* ChatVC.xib in Resources */,
-				B2A664E32A9612EF00AC8058 /* RegisterVC.xib in Resources */,
-				B2A664E82A96132800AC8058 /* PhotoViewerVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B2A213802AAB15A500537663 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B2A664B42A960DCC00AC8058 /* Sources */ = {
@@ -426,6 +458,7 @@
 				B27F72F02AA2632B0086FA76 /* ChatAppUser.swift in Sources */,
 				B2A665402A9E88F300AC8058 /* StorageManager.swift in Sources */,
 				B2A664F12A96138D00AC8058 /* NewConversationVC.swift in Sources */,
+				B27675822AAE005300C723A1 /* ProfileTableViewCell.swift in Sources */,
 				B2A664EC2A96134800AC8058 /* VideoPlayerVC.swift in Sources */,
 				B2A665082A967D4D00AC8058 /* DatabaseManager.swift in Sources */,
 				B2A664BC2A960DCC00AC8058 /* AppDelegate.swift in Sources */,
@@ -437,13 +470,16 @@
 				B2A665022A966B2500AC8058 /* RegisterVM.swift in Sources */,
 				B2A664F92A96198600AC8058 /* Extensions.swift in Sources */,
 				B2A664DD2A9612AA00AC8058 /* LoginVC.swift in Sources */,
+				B27675842AAE007300C723A1 /* ProfileModel.swift in Sources */,
 				B2A665352A9DDEF700AC8058 /* ChatVC.swift in Sources */,
 				B2A213742AA8A2B700537663 /* ChatBaseVC.swift in Sources */,
 				B2A665042A9672D900AC8058 /* LoginVM.swift in Sources */,
 				B2A665392A9DDF7A00AC8058 /* BaseVC.swift in Sources */,
+				B2A213822AADED0F00537663 /* ProfileVM.swift in Sources */,
 				B2A664E72A96132800AC8058 /* PhotoViewerVC.swift in Sources */,
 				B27F72ED2AA1F4490086FA76 /* ConversationTableViewCell.swift in Sources */,
 				B2A664D82A960ED600AC8058 /* ConversationsVC.swift in Sources */,
+				B2A2137A2AA90F7600537663 /* LocationPickerVC.swift in Sources */,
 				B2A664E22A9612EF00AC8058 /* RegisterVC.swift in Sources */,
 				B27F72EB2A9FD8420086FA76 /* NewConversationVM.swift in Sources */,
 				B2A665122A9691DE00AC8058 /* TabbarController.swift in Sources */,
@@ -721,6 +757,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B2A2137E2AAB139D00537663 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2A664FA2A965F4F00AC8058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		B2A664FB2A965F4F00AC8058 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B2A664FA2A965F4F00AC8058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

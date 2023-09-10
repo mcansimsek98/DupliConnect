@@ -41,7 +41,7 @@ class RegisterVC: BaseVC {
         tf.placeholder = "First Name..."
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
-        tf.backgroundColor = .white
+        tf.backgroundColor = .secondarySystemBackground
         return tf
     }()
     
@@ -56,7 +56,7 @@ class RegisterVC: BaseVC {
         tf.placeholder = "Last Name..."
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
-        tf.backgroundColor = .white
+        tf.backgroundColor = .secondarySystemBackground
         return tf
     }()
     
@@ -71,7 +71,7 @@ class RegisterVC: BaseVC {
         tf.placeholder = "Email Address..."
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
-        tf.backgroundColor = .white
+        tf.backgroundColor = .secondarySystemBackground
         return tf
     }()
     
@@ -86,12 +86,10 @@ class RegisterVC: BaseVC {
         tf.placeholder = "Password..."
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
-        tf.backgroundColor = .white
+        tf.backgroundColor = .secondarySystemBackground
         tf.isSecureTextEntry = true
         return tf
     }()
-    
-    
     
     private let registerButton: UIButton = {
         let button = UIButton()
@@ -164,6 +162,7 @@ class RegisterVC: BaseVC {
 extension RegisterVC {
     private func configure() {
         title = "Register"
+        view.backgroundColor = .systemBackground
         emailTF.delegate = self
         passwordTF.delegate = self
         

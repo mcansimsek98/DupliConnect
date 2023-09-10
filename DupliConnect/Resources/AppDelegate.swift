@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FacebookCore
 import GoogleSignIn
+import FirebaseCrashlytics
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

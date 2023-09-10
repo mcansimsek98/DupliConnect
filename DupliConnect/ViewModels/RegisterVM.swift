@@ -47,6 +47,8 @@ class RegisterVM {
                         })
                     }
                 })
+                UserDefaults.standard.setValue(email, forKey: "email")
+                UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
                 let user = result.user
                 self.success?(user)
             })

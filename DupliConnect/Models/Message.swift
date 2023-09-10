@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import MessageKit
+import CoreLocation
 
 struct Media: MediaItem {
     var url: URL?
@@ -54,5 +55,10 @@ extension MessageKind {
             return "custom"
         }
     }
-    
 }
+
+struct Location: LocationItem {
+    var location: CLLocation
+    var size: CGSize
+}
+

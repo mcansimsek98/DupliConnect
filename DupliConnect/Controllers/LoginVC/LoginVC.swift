@@ -37,7 +37,7 @@ class LoginVC: BaseVC {
         tf.placeholder = "Email Address..."
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
-        tf.backgroundColor = .white
+        tf.backgroundColor = .secondarySystemBackground
         return tf
     }()
     
@@ -52,7 +52,7 @@ class LoginVC: BaseVC {
         tf.placeholder = "Password..."
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
-        tf.backgroundColor = .white
+        tf.backgroundColor = .secondarySystemBackground
         tf.isSecureTextEntry = true
         return tf
     }()
@@ -164,6 +164,7 @@ extension LoginVC {
         })
         
         title = "Log In"
+        view.backgroundColor = .systemBackground
         emailTF.delegate = self
         passwordTF.delegate = self
         faceBookLoginButton.delegate = self

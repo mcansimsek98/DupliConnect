@@ -57,6 +57,11 @@ class ConversationsVC: BaseVC {
         })
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.startListeningForConversations()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         validateAuth()
@@ -75,7 +80,6 @@ class ConversationsVC: BaseVC {
             present(nav, animated: false)
         }
     }
-    
     private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -94,13 +98,19 @@ class ConversationsVC: BaseVC {
             switch result {
             case.success(let conversations):
                 guard !conversations.isEmpty else {
+                    self?.tableView.isHidden = true
+                    self?.noConversationsLabel.isHidden = false
                     return
                 }
+                self?.tableView.isHidden = false
+                self?.noConversationsLabel.isHidden = true
                 self?.conversations = conversations
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
             case .failure(let err):
+                self?.tableView.isHidden = true
+                self?.noConversationsLabel.isHidden = false
                 print(err)
             }
         })
@@ -108,6 +118,10 @@ class ConversationsVC: BaseVC {
     
     private func configureLayout() {
         tableView.frame = view.bounds
+        noConversationsLabel.frame = CGRect(x: 10,
+                                            y: (view.height-100)/2,
+                                            width: view.width-20,
+                                            height: 100)
     }
     
     @objc

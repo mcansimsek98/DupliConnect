@@ -10,32 +10,63 @@ import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
 
-class ProfileVC: UIViewController {
-    
+class ProfileVC: BaseVC {
     @IBOutlet weak var tableView: UITableView!
-    let data = ["Log Out"]
     
+    private var data = [ProfileModel]()
+    private let viewModel = ProfileVM()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        bindeViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureTableView()
+        viewModel.getUserData()
+    }
+    
+    private func configureTableView() {
+        tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableHeaderView = createTableHeader()
+    }
+    
+    private func bindeViewModel() {
+        viewModel.userData = { [weak self] user in
+            if !user.isEmpty {
+                self?.data = user
+                self?.tableView.reloadData()
+            }
+        }
+
+        viewModel.signOut = { [weak self] _ in
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { _ in
+                self?.viewModel.singOutUser(completion: { isSingOut in
+                    if isSingOut {
+                        let vc = LoginVC()
+                        let nav = UINavigationController(rootViewController: vc)
+                        nav.modalPresentationStyle = .fullScreen
+                        self?.present(nav, animated: true)
+                        self?.tabBarController?.selectedIndex = 0
+                    }else {
+                       //show alert
+                    }
+                })
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self?.present(alert, animated: true)
+        }
     }
 }
 
 //MARK: TableHeaderView
 extension ProfileVC {
-    
     func createTableHeader() -> UIView? {
-        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
-            return nil
-        }
-        let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
-        let fileName = safeEmail + "_profile_picture.png"
-        let path = "images/" + fileName
-        
         let headerView = UIView(frame: CGRect(x: 0,
                                               y: 0,
                                               width: self.view.width,
@@ -53,46 +84,16 @@ extension ProfileVC {
         imageView.layer.cornerRadius = imageView.width/2
         headerView.addSubview(imageView)
         
-        StorageManager.shared.downloadUrl(for: path) { result in
-            switch result {
-            case .failure(let error):
-                print(error)
+        viewModel.fetchUserPhoto { url in
+            guard let url = url else {
                 imageView.image = nil
-            case .success(let url):
-                DispatchQueue.main.async {
-                    imageView.downloadImage(url: url)
-                }
+                return
+            }
+            DispatchQueue.main.async {
+                imageView.downloadImage(url: url)
             }
         }
         return headerView
-    }
-}
-
-//MARK: SignOut func
-extension ProfileVC {
-    private func signOut() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { [weak self] _ in
-            
-            //Log Out Facebook
-            FBSDKLoginKit.LoginManager().logOut()
-            
-            //Log Out Google
-            GIDSignIn.sharedInstance.signOut()
-            
-            do {
-                try FirebaseAuth.Auth.auth().signOut()
-                
-                let vc = LoginVC()
-                let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .fullScreen
-                self?.present(nav, animated: true)
-            }catch {
-                
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(alert, animated: true)
     }
 }
 
@@ -103,19 +104,14 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = data[indexPath.row]
-        cell.textLabel?.textAlignment = .center
-        cell.textLabel?.textColor = .red
+        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.identifier, for: indexPath) as! ProfileTableViewCell
+        let model = data[indexPath.row]
+        cell.setUp(with: model)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if data[indexPath.row] == "Log Out" {
-            self.signOut()
-        }
-        
+        data[indexPath.row].handler?()
     }
-    
 }
