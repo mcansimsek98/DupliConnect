@@ -12,7 +12,8 @@ import AVFoundation
 import AVKit
 import CoreLocation
 
-class ChatVC: ChatBaseVC {
+final class ChatVC: ChatBaseVC {
+    private let viewModel = ChatVM()
     public let otherUserEmail: String
     public var isNewConservation = false
     private var converstaionsId: String?
@@ -47,6 +48,7 @@ class ChatVC: ChatBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        bindViewModel()
         setupInputButton()
         if let conversationId = converstaionsId {
             listenForMessages(id: conversationId, shouldScrollToBottom: true)
@@ -69,23 +71,34 @@ class ChatVC: ChatBaseVC {
     }
     
     private func listenForMessages(id: String, shouldScrollToBottom: Bool) {
-        DatabaseManager.shared.getAllMessagesForConversation(with: id, completion: { [weak self] result in
-            switch result {
-            case .success(let messages):
-                guard !messages.isEmpty else {
-                    return
+        viewModel.getAllMessages(id: id) { [weak self] messages in
+            guard let strongSelf = self else { return }
+            strongSelf.messages = messages
+            DispatchQueue.main.async {
+                strongSelf.messagesCollectionView.reloadDataAndKeepOffset()
+                if shouldScrollToBottom {
+                    strongSelf.messagesCollectionView.scrollToLastItem()
                 }
-                self?.messages = messages
-                DispatchQueue.main.async {
-                    self?.messagesCollectionView.reloadDataAndKeepOffset()
-                    if shouldScrollToBottom {
-                        self?.messagesCollectionView.scrollToLastItem()
-                    }
-                }
-            case .failure(let err):
-                print("failed to get messages: \(err)")
             }
-        })
+        }
+    }
+    
+    private func bindViewModel() {
+        viewModel.error = { [weak self] err in
+            guard let strongSelf = self else { return }
+            strongSelf.alertErrorWithDismiss(message: err)
+        }
+        
+        viewModel.createdNewConversation = { [weak self] messageId, success in
+            guard let strongSelf = self else { return }
+            strongSelf.messageInputBar.inputTextView.text = nil
+            if success {
+                strongSelf.isNewConservation = false
+                let newConversationId = "conversation_\(messageId)"
+                strongSelf.converstaionsId = newConversationId
+                strongSelf.listenForMessages(id: newConversationId, shouldScrollToBottom: true)
+            }
+        }
     }
 }
 
@@ -136,12 +149,13 @@ extension ChatVC {
         let vc = LocationPickerVC(coordinates: nil)
         vc.title = "Pick Location"
         vc.navigationItem.largeTitleDisplayMode = .never
+        
+        
         vc.completion  = { [weak self] selectedCoordinates in
-            guard let self = self else { return }
-            guard let messageId = createMessageId(),
-                  let converstaionsId = converstaionsId,
-                  let name = title,
-                  let selfSender = selfSender else {
+            guard let strongSelf = self else { return }
+            guard let messageId = strongSelf.viewModel.createMessageId(otherUserEmail: strongSelf.otherUserEmail),
+                  let name = strongSelf.title,
+                  let selfSender = strongSelf.selfSender else {
                 return
             }
             
@@ -150,18 +164,7 @@ extension ChatVC {
             let clLocation = CLLocation(latitude: latitude, longitude: longitude)
             let location = Location(location: clLocation, size: .zero)
             
-            let message = Message(sender: selfSender,
-                                  messageId: messageId,
-                                  sentDate: Date(),
-                                  kind: .location(location))
-            
-            DatabaseManager.shared.sendMessage(to: converstaionsId, otherUserEmail: otherUserEmail, name: name, newMessage: message, completion: { success in
-                if success {
-                    
-                }else {
-                    
-                }
-            })
+            strongSelf.viewModel.sendMessage(to: strongSelf.converstaionsId, otherUserEmail: strongSelf.otherUserEmail, name: name, sender: selfSender, messageId: messageId, url: nil, isVideo: false, isText: false, isNewConservation: strongSelf.isNewConservation, isLocation: true, location: location)
         }
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -175,85 +178,35 @@ extension ChatVC: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
-        guard let messageId = createMessageId(),
+        guard let messageId = viewModel.createMessageId(otherUserEmail: otherUserEmail),
               let converstaionsId = converstaionsId,
-              let name = self.title,
-              let selfSender = self.selfSender else {
+              let name = title,
+              let selfSender = selfSender else {
             return
         }
         
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage,
            let imageData = image.pngData() {
-            // Upload image
-            let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".png"
             
-            StorageManager.shared.uploadMessagePhoto(with: imageData, fileName: fileName, complation: { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let urlString):
-                    // ready to send message
-                    print("uploaded message photo: \(urlString)" )
-                    
-                    guard let url = URL(string: urlString),
-                          let placholder = UIImage(systemName: "plus") else {
-                        return
-                    }
-                    
-                    let media = Media(url: url,
-                                      image: nil,
-                                      placeholderImage: placholder,
-                                      size: .zero)
-                    
-                    let message = Message(sender: selfSender,
-                                          messageId: messageId,
-                                          sentDate: Date(),
-                                          kind: .photo(media))
-                    
-                    DatabaseManager.shared.sendMessage(to: converstaionsId, otherUserEmail: otherUserEmail, name: name, newMessage: message, completion: { success in
-                        if success {
-                            
-                        }else {
-                            
-                        }
-                    })
-                case .failure(let err):
-                    print("message photo upload error: \(err)")
+            let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".png"
+            viewModel.uploadMessagePhoto(with: imageData, fileName: fileName) { [weak self] urlStr in
+                guard let strongSelf = self else { return }
+                guard let url = URL(string: urlStr) else {
+                    return
                 }
-            })
+                strongSelf.viewModel.sendMessage(to: converstaionsId, otherUserEmail: strongSelf.otherUserEmail, name: name, sender: selfSender, messageId: messageId, url: url, isVideo: false, location: Location(location: CLLocation(latitude: 0, longitude: 0), size: .zero))
+            }
+            
         }else if let videoURL = info[.mediaURL] as? URL {
-            // Upload video
+            
             let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".mov"
-            StorageManager.shared.uploadMessageVideo(with: videoURL, fileName: fileName, complation: { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let urlString):
-                    // ready to send message
-                    guard let url = URL(string: urlString),
-                          let placholder = UIImage(systemName: "plus") else {
-                        return
-                    }
-                    
-                    let media = Media(url: url,
-                                      image: nil,
-                                      placeholderImage: placholder,
-                                      size: .zero)
-                    
-                    let message = Message(sender: selfSender,
-                                          messageId: messageId,
-                                          sentDate: Date(),
-                                          kind: .video(media))
-                    
-                    DatabaseManager.shared.sendMessage(to: converstaionsId, otherUserEmail: otherUserEmail, name: name, newMessage: message, completion: { success in
-                        if success {
-                            
-                        }else {
-                            
-                        }
-                    })
-                case .failure(let err):
-                    print("message video upload error: \(err)")
+            viewModel.uploadMessageVideo(with: videoURL, fileName: fileName) { [weak self] urlStr in
+                guard let strongSelf = self else { return }
+                guard let url = URL(string: urlStr) else {
+                    return
                 }
-            })
+                strongSelf.viewModel.sendMessage(to: converstaionsId, otherUserEmail: strongSelf.otherUserEmail, name: name, sender: selfSender, messageId: messageId, url: url, isVideo: true, location: Location(location: CLLocation(latitude: 0, longitude: 0), size: .zero))
+            }
         }
     }
 }
@@ -285,6 +238,8 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
                 return
             }
             imageView.downloadImage(url: imageURL)
+        case .video(let media):
+            imageView.image = media.placeholderImage
         default:
             break
         }
@@ -292,7 +247,7 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         let sender = message.sender
-        if sender.senderId == self.selfSender?.senderId {
+        if sender.senderId == selfSender?.senderId {
             return .link
         }
         return .lightText
@@ -301,51 +256,50 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         let sender = message.sender
         
-        if sender.senderId == self.selfSender?.senderId {
-            if let currentUserImageURL = self.senderPhotoURL {
+        if sender.senderId == selfSender?.senderId {
+            if let currentUserImageURL = senderPhotoURL {
                 avatarView.downloadImage(url: currentUserImageURL)
             }else {
                 guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
                     return
                 }
-                let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
-                let path = "images/\(safeEmail)_profile_picture.png"
-                StorageManager.shared.downloadUrl(for: path, complation: { [weak self] result in
-                    switch result {
-                    case .success(let url):
-                        self?.senderPhotoURL = url
-                        DispatchQueue.main.async {
-                            avatarView.downloadImage(url: url)
-                        }
-                    case .failure(let err):
-                        print(err)
+                viewModel.getAvatarImage(email: email) { [weak self] url in
+                    self?.senderPhotoURL = url
+                    DispatchQueue.main.async {
+                        avatarView.downloadImage(url: url)
                     }
-                })
+                }
             }
         }else {
-            if let otherUserImageURL = self.otherUserPhotoURL {
+            if let otherUserImageURL = otherUserPhotoURL {
                 avatarView.downloadImage(url: otherUserImageURL)
             }else {
-                let email = self.otherUserEmail
-                let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
-                let path = "images/\(safeEmail)_profile_picture.png"
-                StorageManager.shared.downloadUrl(for: path, complation: { [weak self] result in
-                    switch result {
-                    case .success(let url):
-                        self?.otherUserPhotoURL = url
-                        DispatchQueue.main.async {
-                            avatarView.downloadImage(url: url)
-                        }
-                    case .failure(let err):
-                        print(err)
+                viewModel.getAvatarImage(email: otherUserEmail) { [weak self] url in
+                    self?.senderPhotoURL = url
+                    DispatchQueue.main.async {
+                        avatarView.downloadImage(url: url)
                     }
-                })
+                }
             }
         }
     }
 }
 
-// MARK: MessageCellDelegate
+// MARK: InputBarAccessoryViewDelegate
+extension ChatVC: InputBarAccessoryViewDelegate {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        guard !text.replacingOccurrences(of: " ", with: "").isEmpty,
+              let selfSender = selfSender,
+              let messageId = viewModel.createMessageId(otherUserEmail: otherUserEmail),
+              let name = title else {
+            return
+        }
+        
+        viewModel.sendMessage(to: converstaionsId, otherUserEmail: otherUserEmail, name: name, sender: selfSender, messageId: messageId, url: nil, isText: true, messageText: text, isNewConservation: isNewConservation, location: Location(location: CLLocation(latitude: 0, longitude: 0), size: .zero))
+    }
+}
+
+// MARK: MessageCellDelegate - DidSelcet
 extension ChatVC: MessageCellDelegate {
     func didTapImage(in cell: MessageCollectionViewCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
@@ -359,7 +313,7 @@ extension ChatVC: MessageCellDelegate {
                 return
             }
             let vc = PhotoViewerVC(with: imageURL)
-            self.navigationController?.pushViewController(vc, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
         case .video(let media):
             guard let videoURL = media.url else {
                 return
@@ -388,61 +342,5 @@ extension ChatVC: MessageCellDelegate {
         default:
             break
         }
-    }
-}
-
-
-// MARK: InputBarAccessoryViewDelegate
-extension ChatVC: InputBarAccessoryViewDelegate {
-    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
-        guard !text.replacingOccurrences(of: " ", with: "").isEmpty,
-              let selfSender = self.selfSender,
-              let messageId = createMessageId() else {
-            return
-        }
-        
-        let message = Message(sender: selfSender,
-                              messageId: messageId,
-                              sentDate: Date(),
-                              kind: .text(text))
-        
-        //Send message
-        if isNewConservation {
-            DatabaseManager.shared.createNewConversation(with: otherUserEmail, name: self.title ?? "User", firstMessage: message, completaion: { [weak self] success in
-                if success {
-                    self?.isNewConservation = false
-                    let newConversationId = "conversation_\(message.messageId)"
-                    self?.converstaionsId = newConversationId
-                    self?.listenForMessages(id: newConversationId, shouldScrollToBottom: true)
-                    self?.messageInputBar.inputTextView.text = nil
-                }else {
-                    print("faild message send")
-                }
-            })
-        }else {
-            guard let converstaionsId = converstaionsId,
-                  let name = self.title else {
-                return
-            }
-            DatabaseManager.shared.sendMessage(to: converstaionsId, otherUserEmail: otherUserEmail, name: name, newMessage: message, completion: { [weak self] success in
-                if success {
-                    self?.messageInputBar.inputTextView.text = nil
-                    print("message sent")
-                }else {
-                    print("faild message send")
-                }
-            })
-        }
-    }
-    
-    private func createMessageId() -> String? {
-        // date, otherUserEmail, senderEmail, ramdomInt
-        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
-            return nil
-        }
-        let safeUserEmail = DatabaseManager.safeEmail(emailAddress: currentUserEmail)
-        let dateStr = Date.dateFormaterMessage.string(from: Date())
-        let newIdentifier = "\(otherUserEmail)_\(safeUserEmail)_\(dateStr)"
-        return newIdentifier
     }
 }

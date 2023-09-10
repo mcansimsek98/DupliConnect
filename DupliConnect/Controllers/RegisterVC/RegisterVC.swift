@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class RegisterVC: BaseVC {
+final class RegisterVC: BaseVC {
     let viewModel = RegisterVM()
     
     private let scrollView: UIScrollView = {
@@ -127,12 +127,12 @@ class RegisterVC: BaseVC {
               !firstName.isEmpty, !lastName.isEmpty,
               !email.isEmpty, !password.isEmpty,
               password.count >= 6 else {
-            self.alertErrorWithDismiss(message: "Please enter all information to create a new account.")
+            alertErrorWithDismiss(message: "Please enter all information to create a new account.")
             return
         }
-        self.showSpinner()
+        showSpinner()
         
-        let image = self.imageView.image
+        let image = imageView.image
         viewModel.createAccount(firstName: firstName,
                                 lastName: lastName,
                                 email: email,
@@ -146,7 +146,7 @@ class RegisterVC: BaseVC {
     }
     
     private func bindViewModel() {
-        viewModel.success = { [weak self] user in
+        viewModel.user = { [weak self] user in
             self?.hideSpinner()
             self?.dismiss(animated: true)
         }
@@ -279,9 +279,7 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         } else {
             return
         }
-        self.imageView.image = selectedImage
-
+        imageView.image = selectedImage
         dismiss(animated: true)
-        
     }
 }

@@ -10,7 +10,7 @@ import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
 
-class ProfileVC: BaseVC {
+final class ProfileVC: BaseVC {
     @IBOutlet weak var tableView: UITableView!
     
     private var data = [ProfileModel]()
@@ -69,7 +69,7 @@ extension ProfileVC {
     func createTableHeader() -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0,
                                               y: 0,
-                                              width: self.view.width,
+                                              width: view.width,
                                               height: 210))
         headerView.backgroundColor = .link
         let imageView = UIImageView(frame: CGRect(x: (headerView.width - 150) / 2,

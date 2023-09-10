@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 
 class RegisterVM {
-    var success: ((User) -> ())?
+    var user: ((User) -> ())?
     var error: ((String) -> ())?
     
     func createAccount(firstName: String, lastName: String, email: String, profilePhoto: UIImage?, password: String) {
@@ -19,9 +19,10 @@ class RegisterVM {
                 self?.error?("Looks like a user account for that email address already exists.")
                 return
             }
-            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { result, err in
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { [weak self] result, err in
+                guard let strongSelf = self else { return }
                 guard let result = result, err == nil else {
-                    self.error?(err?.localizedDescription ?? "An unexpected error has occurred. Try again.")
+                    strongSelf.error?(err?.localizedDescription ?? "An unexpected error has occurred. Try again.")
                     return
                 }
                 let chatUser = ChatAppUser(firstName: firstName,
@@ -42,7 +43,7 @@ class RegisterVM {
                                 UserDefaults.standard.set(downLoadUrl, forKey: "profile_picture_url")
                                 print(downLoadUrl)
                             case .failure(let err):
-                                self.error?("Storege Manager error: \(err)")
+                                strongSelf.error?("Storege Manager error: \(err)")
                             }
                         })
                     }
@@ -50,7 +51,7 @@ class RegisterVM {
                 UserDefaults.standard.setValue(email, forKey: "email")
                 UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
                 let user = result.user
-                self.success?(user)
+                strongSelf.user?(user)
             })
         }
     }

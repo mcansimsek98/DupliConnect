@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewConversationVC: BaseVC {
+final class NewConversationVC: BaseVC {
     private let viewModel = NewConversationVM()
     private var users = [[String: String]]()
     private var filterUsers = [SearchResult]()
@@ -56,40 +56,40 @@ class NewConversationVC: BaseVC {
     
     @objc
     private func didTapCancelButton() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     
     
     private func bindViewModel() {
         viewModel.users = { [weak self] users in
-            guard let self = self else { return }
-            self.hideSpinner()
-            self.users = users
+            guard let strongSelf = self else { return }
+            strongSelf.hideSpinner()
+            strongSelf.users = users
         }
         
         viewModel.filterUsers = { [weak self] users in
-            guard let self = self else { return }
-            self.hideSpinner()
-            self.filterUsers = users
-            self.updateUI()
+            guard let strongSelf = self else { return }
+            strongSelf.hideSpinner()
+            strongSelf.filterUsers = users
+            strongSelf.updateUI()
         }
         
         viewModel.error = { [weak self] err in
-            guard let self = self else { return }
-            self.hideSpinner()
-            self.alertErrorWithDismiss(message: err)
+            guard let strongSelf = self else { return }
+            strongSelf.hideSpinner()
+            strongSelf.alertErrorWithDismiss(message: err)
         }
     }
     
     private func updateUI() {
         if filterUsers.isEmpty {
-            self.noResultLabel.isHidden = false
-            self.tableView.isHidden = true
+            noResultLabel.isHidden = false
+            tableView.isHidden = true
         }else {
-            self.noResultLabel.isHidden = true
-            self.tableView.isHidden = false
-            self.tableView.reloadData()
+            noResultLabel.isHidden = true
+            tableView.isHidden = false
+            tableView.reloadData()
         }
     }
     
@@ -118,9 +118,9 @@ extension NewConversationVC: UISearchBarDelegate {
             return
         }
         searchBar.resignFirstResponder()
-        self.filterUsers.removeAll()
-        self.showSpinner()
-        self.viewModel.searchUsers(query: text)
+        filterUsers.removeAll()
+        showSpinner()
+        viewModel.searchUsers(query: text)
     }
 }
 
@@ -141,7 +141,8 @@ extension NewConversationVC: UITableViewDelegate, UITableViewDataSource {
         
         let targetUserData = filterUsers[indexPath.row]
         dismiss(animated: true, completion: { [weak self] in
-            self?.completion?(targetUserData)
+            guard let strongSelf = self else { return }
+            strongSelf.completion?(targetUserData)
         })
     }
     

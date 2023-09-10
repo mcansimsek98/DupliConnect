@@ -23,8 +23,9 @@ class BaseVC: UIViewController {
     }
     
     func hideSpinner() {
-        DispatchQueue.main.async {
-            self.spinner.dismiss()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            spinner.dismiss()
         }
     }
 

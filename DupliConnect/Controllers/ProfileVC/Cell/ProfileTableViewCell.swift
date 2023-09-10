@@ -11,16 +11,16 @@ class ProfileTableViewCell: UITableViewCell {
     static let identifier = "ProfileTableViewCell"
     
     public func setUp(with model: ProfileModel) {
-        self.textLabel?.text = model.title
+        textLabel?.text = model.title
         switch model.ProfileViewModelType {
         case .info:
-            self.textLabel?.textColor = .label
-            self.textLabel?.textAlignment = .left
-            self.selectionStyle = .none
+            textLabel?.textColor = .label
+            textLabel?.textAlignment = .left
+            selectionStyle = .none
             break
         case .logout:
-            self.textLabel?.textColor = .red
-            self.textLabel?.textAlignment = .center
+            textLabel?.textColor = .red
+            textLabel?.textAlignment = .center
             break
         }
     }

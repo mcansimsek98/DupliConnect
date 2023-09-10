@@ -21,4 +21,12 @@ class ChatBaseVC: MessagesViewController {
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(actionSheet, animated: true)
     }
+    
+    func alertErrorWithDismiss(message: String) {
+        let alert = UIAlertController(title: "Woops",
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+        present(alert, animated: true)
+    }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoViewerVC: UIViewController {
+final class PhotoViewerVC: UIViewController {
     private let url: URL?
     
     init( with url: URL) {
@@ -40,5 +40,4 @@ class PhotoViewerVC: UIViewController {
         super.viewDidLayoutSubviews()
         imageView.frame = view.bounds
     }
-    
 }

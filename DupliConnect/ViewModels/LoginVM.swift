@@ -12,13 +12,14 @@ import GoogleSignIn
 import Firebase
 
 class LoginVM {
-    var success: ((User) -> ())?
+    var user: ((User) -> ())?
     var error: ((String) -> ())?
     
     func signIn(email: String, password: String) {
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, err in
+            guard let strongSelf = self else { return }
             guard let result = result, err == nil else {
-                self?.error?(err?.localizedDescription ?? "An unexpected error has occurred. Try again.")
+                strongSelf.error?(err?.localizedDescription ?? "An unexpected error has occurred. Try again.")
                 return
             }
             let user = result.user
@@ -39,7 +40,7 @@ class LoginVM {
                 }
             })
             UserDefaults.standard.setValue(email, forKey: "email")
-            self?.success?(user)
+            strongSelf.user?(user)
         }
     }
     
@@ -50,9 +51,10 @@ class LoginVM {
                                                          version: nil,
                                                          httpMethod: .get)
         
-        facebookRequest.start(completion: { _, result, err in
+        facebookRequest.start(completion: { [weak self] _, result, err in
+            guard let strongSelf = self else { return }
             guard let result = result as? [String: Any], err == nil else {
-                self.error?(err?.localizedDescription ?? "Failed to make facebook graph request")
+                strongSelf.error?(err?.localizedDescription ?? "Failed to make facebook graph request")
                 return
             }
             guard let firstName = result["first_name"] as? String,
@@ -61,7 +63,7 @@ class LoginVM {
                   let picture = result["picture"] as? [String: Any],
                   let data = picture["data"] as? [String: Any],
                   let pictureUrl = data["url"] as? String else {
-                self.error?("Faield to get email and name from fb result.")
+                strongSelf.error?("Faield to get email and name from fb result.")
                 return
             }
             
@@ -89,7 +91,7 @@ class LoginVM {
                                         UserDefaults.standard.set(downLoadUrl, forKey: "profile_picture_url")
                                         print(downLoadUrl)
                                     case .failure(let err):
-                                        self.error?("Storege Manager error: \(err)")
+                                        strongSelf.error?("Storege Manager error: \(err)")
                                     }
                                 })
                             }).resume()
@@ -102,12 +104,12 @@ class LoginVM {
             FirebaseAuth.Auth.auth().signIn(with: credential, completion: { result, err in
                 guard let result = result, err == nil else {
                     if let err = err {
-                        self.error?(err.localizedDescription)
+                        strongSelf.error?(err.localizedDescription)
                     }
                     return
                 }
                 let user = result.user
-                self.success?(user)
+                strongSelf.user?(user)
             })
         })
     }
@@ -117,10 +119,11 @@ class LoginVM {
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config
         
-        GIDSignIn.sharedInstance.signIn(withPresenting: vc) { result, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: vc) { [weak self] result, error in
+            guard let strongSelf = self else { return }
             guard error == nil else {
                 if let err = error {
-                    self.error?(err.localizedDescription)
+                    strongSelf.error?(err.localizedDescription)
                 }
                 return
             }
@@ -159,7 +162,7 @@ class LoginVM {
                                             UserDefaults.standard.set(downLoadUrl, forKey: "profile_picture_url")
                                             print(downLoadUrl)
                                         case .failure(let err):
-                                            self.error?("Storege Manager error: \(err)")
+                                            strongSelf.error?("Storege Manager error: \(err)")
                                         }
                                     })
                                 }).resume()
@@ -174,12 +177,12 @@ class LoginVM {
             FirebaseAuth.Auth.auth().signIn(with: credential, completion: { result, error in
                 guard let result = result, error == nil else {
                     if let err = error {
-                        self.error?(err.localizedDescription)
+                        strongSelf.error?(err.localizedDescription)
                     }
                     return
                 }
                 let user = result.user
-                self.success?(user)
+                strongSelf.user?(user)
             })
         }
     }

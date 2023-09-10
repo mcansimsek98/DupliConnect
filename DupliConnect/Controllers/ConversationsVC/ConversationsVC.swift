@@ -9,20 +9,7 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 
-struct Conversation {
-    let id: String
-    let name: String
-    let otherUserEmail: String
-    let latestMessage: LatestMessage
-}
-
-struct LatestMessage {
-    let date: String
-    let text: String
-    let isRead: Bool
-}
-
-class ConversationsVC: BaseVC {
+final class ConversationsVC: BaseVC {
     private var conversations = [Conversation]()
     private var loginObserver: NSObjectProtocol?
         
@@ -59,7 +46,7 @@ class ConversationsVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.startListeningForConversations()
+        startListeningForConversations()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -141,7 +128,7 @@ class ConversationsVC: BaseVC {
                 vc.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(vc, animated: true)
             }else {
-                self.createNewConversation(result: result)
+                createNewConversation(result: result)
             }
         }
         let navVC = UINavigationController(rootViewController: vc)
@@ -201,10 +188,12 @@ extension ConversationsVC: UITableViewDelegate, UITableViewDataSource {
         
         if editingStyle == .delete {
             tableView.beginUpdates()
-            DatabaseManager.shared.deleteConversation(conversationId: conversationId, completion: { [weak self] success in
-                if success {
-                    self?.conversations.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .left)
+            conversations.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+
+            DatabaseManager.shared.deleteConversation(conversationId: conversationId, completion: { success in
+                if !success {
+                    print("failed to delete")
                 }
             })
             tableView.endUpdates()

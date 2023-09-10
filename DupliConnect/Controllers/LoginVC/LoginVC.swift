@@ -10,7 +10,7 @@ import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
 
-class LoginVC: BaseVC {
+final class LoginVC: BaseVC {
     let viewModel = LoginVM()
     
     private let scrollView: UIScrollView = {
@@ -125,7 +125,7 @@ class LoginVC: BaseVC {
             alertErrorWithDismiss(message: "Please enter all information to log in.")
             return
         }
-        self.showSpinner()
+        showSpinner()
         viewModel.signIn(email: email, password: password)
     }
     
@@ -142,16 +142,16 @@ class LoginVC: BaseVC {
     }
     
     private func bindViewModel() {
-        viewModel.success = { [weak self] user in
-            guard let self = self else { return }
-            self.hideSpinner()
-            self.dismiss(animated: true)
+        viewModel.user = { [weak self] user in
+            guard let strongSelf = self else { return }
+            strongSelf.hideSpinner()
+            strongSelf.dismiss(animated: true)
         }
         
         viewModel.error = { [weak self] err in
-            guard let self = self else { return }
-            self.hideSpinner()
-            self.alertErrorWithDismiss(message: err)
+            guard let strongSelf = self else { return }
+            strongSelf.hideSpinner()
+            strongSelf.alertErrorWithDismiss(message: err)
         }
     }
 }

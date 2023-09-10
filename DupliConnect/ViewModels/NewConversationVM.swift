@@ -19,14 +19,15 @@ class NewConversationVM {
         if hasFetched {
             
         }else {
-            DatabaseManager.shared.getAllUsers(completion: { result in
+            DatabaseManager.shared.getAllUsers(completion: { [weak self] result in
+                guard let strongSelf = self else { return }
                 switch result {
                 case .success(let users):
-                    self.hasFetched = true
-                    self.users?(users)
-                    self.filetUsers(with: query, users: users)
+                    strongSelf.hasFetched = true
+                    strongSelf.users?(users)
+                    strongSelf.filetUsers(with: query, users: users)
                 case .failure(let err):
-                    self.error?(err.localizedDescription)
+                    strongSelf.error?(err.localizedDescription)
                 }
             })
         }
@@ -51,7 +52,7 @@ class NewConversationVM {
             }
             return SearchResult(name: name, email: email)
         })
-        self.filterUsers?(results)
+        filterUsers?(results)
     }
     
 }
