@@ -10,6 +10,7 @@ import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
 import Firebase
+import AuthenticationServices
 
 class LoginVM {
     var user: ((User) -> ())?
@@ -184,6 +185,67 @@ class LoginVM {
                 let user = result.user
                 strongSelf.user?(user)
             })
+        }
+    }
+    
+    func singInWithApple(appleIDCredential: ASAuthorizationAppleIDCredential) {
+        guard let identityToken = appleIDCredential.identityToken,
+              let tokenString = String(data: identityToken, encoding: .utf8)  else {
+            return
+        }
+        
+        let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenString, rawNonce: nil)
+        
+        FirebaseAuth.Auth.auth().signIn(with: credential) { [weak self] authResult, error in
+            guard let strongSelf = self else { return }
+            
+            if let error = error {
+                strongSelf.error?(error.localizedDescription)
+                return
+            }
+            
+            guard let user = authResult?.user else { return }
+            
+            guard let email = appleIDCredential.email ?? user.email,
+                  let firstName = appleIDCredential.fullName?.givenName,
+                  let lastName = appleIDCredential.fullName?.familyName else {
+                return
+            }
+
+            UserDefaults.standard.setValue(email, forKey: "email")
+            UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+            
+            DatabaseManager.shared.userExists(with: email, completion: { exists in
+                if !exists {
+                    let chatUser = ChatAppUser(firstName: firstName,
+                                               lastName: lastName,
+                                               emailAddress: email)
+                    DatabaseManager.shared.insertUser(with: chatUser, comletion: { success in
+                        if success {
+                            //upload image
+                            if let userPhotoURL = user.photoURL {
+                                URLSession.shared.dataTask(with: userPhotoURL, completionHandler: {data, _, _ in
+                                    guard let data = data else {
+                                        return
+                                    }
+                                    let fileName = chatUser.profilePictureFileName
+                                    StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName, complation: { result in
+                                        switch result {
+                                        case .success(let downLoadUrl):
+                                            UserDefaults.standard.set(downLoadUrl, forKey: "profile_picture_url")
+                                            print(downLoadUrl)
+                                        case .failure(let err):
+                                            strongSelf.error?("Storege Manager error: \(err)")
+                                        }
+                                    })
+                                }).resume()
+                            }
+                        }
+                    })
+                }
+            })
+            
+            strongSelf.user?(user)
         }
     }
 }

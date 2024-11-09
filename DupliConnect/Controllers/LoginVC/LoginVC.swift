@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
+import AuthenticationServices
 
 final class LoginVC: BaseVC {
     let viewModel = LoginVM()
@@ -34,7 +35,7 @@ final class LoginVC: BaseVC {
         tf.layer.cornerRadius = 12
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.layer.borderWidth = 1
-        tf.placeholder = "Email Address..."
+        tf.placeholder = " E-mail"
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
         tf.backgroundColor = .secondarySystemBackground
@@ -49,42 +50,12 @@ final class LoginVC: BaseVC {
         tf.layer.cornerRadius = 12
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.layer.borderWidth = 1
-        tf.placeholder = "Password..."
+        tf.placeholder = " Password"
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
         tf.backgroundColor = .secondarySystemBackground
         tf.isSecureTextEntry = true
         return tf
-    }()
-    
-    private let logginButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Log In", for: .normal)
-        button.backgroundColor = .link
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        return button
-    }()
-    
-    private let faceBookLoginButton: FBLoginButton = {
-        let button = FBLoginButton()
-        button.permissions = ["public_profile", "email"]
-        button.backgroundColor = .link
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        return button
-    }()
-    
-    private let googleLoginButton: GIDSignInButton = {
-        let button = GIDSignInButton()
-        button.tintColor = .link
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
-        return button
     }()
     
     private var orLabel: UILabel = {
@@ -95,6 +66,115 @@ final class LoginVC: BaseVC {
         label.font = .systemFont(ofSize: 17)
         return label
     }()
+    
+    lazy var logginButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Log In", for: .normal)
+        button.backgroundColor = .magenta
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.addAction(loginButtonAction, for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var appleLoginButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Apple"), for: .normal)
+        button.setTitle("  Log In With Apple", for: .normal)
+        button.backgroundColor = .lightGray
+        button.setTitleColor(.systemGray6, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.addAction(appleLoginButtonAction, for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var faceBookLoginButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Facebook"), for: .normal)
+        button.setTitle("  Log In With Facebook", for: .normal)
+        button.backgroundColor = .lightGray
+        button.setTitleColor(.systemGray6, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.addAction(facebookLoginButtonAction, for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var googleLoginButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Google"), for: .normal)
+        button.setTitle("  Log In With Google", for: .normal)
+        button.backgroundColor = .lightGray
+        button.setTitleColor(.systemGray6, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.addAction(googleLoginButtonAction, for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var registerButton: UIButton = {
+        let button = UIButton()
+        let title = NSAttributedString(string: "Create an account", attributes: [
+            .underlineStyle: NSUnderlineStyle.single.rawValue,
+            .foregroundColor: UIColor.label,
+            .font: UIFont.systemFont(ofSize: 12),
+        ])
+
+        button.setAttributedTitle(title, for: .normal)
+        button.addAction(registerButtonAction, for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var loginButtonAction: UIAction = UIAction { [weak self] _ in
+        self?.loginAction()
+    }
+    
+    lazy var appleLoginButtonAction: UIAction = UIAction { _ in
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
+    lazy var facebookLoginButtonAction: UIAction = UIAction { _ in
+        let loginManager = FBSDKLoginKit.LoginManager()
+        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { [weak self] result, error in
+            guard let self else { return }
+            
+            if let error = error {
+                viewModel.error?(error.localizedDescription)
+                return
+            }
+            
+            guard let token = result?.token?.tokenString else {
+                viewModel.error?("User failed to log in with Facebook.")
+                return
+            }
+            
+            viewModel.singInWithFacebook(token: token)
+        }
+    }
+    
+    lazy var googleLoginButtonAction: UIAction = UIAction { [weak self] _ in
+        guard let self else { return }
+        viewModel.singInWithGoogle(self)
+    }
+    
+    lazy var registerButtonAction: UIAction = UIAction { [weak self] _ in
+        guard let self else { return }
+        let vc = RegisterVC()
+        vc.title = "Create Account"
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     private var loginObserver: NSObjectProtocol?
     
@@ -109,36 +189,15 @@ final class LoginVC: BaseVC {
         bindViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     deinit {
         if let observer = loginObserver {
             NotificationCenter.default.removeObserver(observer)
         }
-    }
-    
-    @objc
-    private func loginButtonTapped() {
-        emailTF.resignFirstResponder()
-        passwordTF.resignFirstResponder()
-        
-        guard let email = emailTF.text, let password = passwordTF.text,
-              !email.isEmpty, !password.isEmpty, password.count >= 6 else {
-            alertErrorWithDismiss(message: "Please enter all information to log in.")
-            return
-        }
-        showSpinner()
-        viewModel.signIn(email: email, password: password)
-    }
-    
-    @objc
-    private func googleLoginButtonTapped() {
-        viewModel.singInWithGoogle(self)
-    }
-    
-    @objc
-    private func didTapRegister() {
-        let vc = RegisterVC()
-        vc.title = "Create Account"
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func bindViewModel() {
@@ -154,6 +213,19 @@ final class LoginVC: BaseVC {
             strongSelf.alertErrorWithDismiss(message: err)
         }
     }
+    
+    private func loginAction() {
+        emailTF.resignFirstResponder()
+        passwordTF.resignFirstResponder()
+        
+        guard let email = emailTF.text, let password = passwordTF.text,
+              !email.isEmpty, !password.isEmpty, password.count >= 6 else {
+            alertErrorWithDismiss(message: "Please enter all information to log in.")
+            return
+        }
+        showSpinner()
+        viewModel.signIn(email: email, password: password)
+    }
 }
 
 extension LoginVC {
@@ -163,19 +235,12 @@ extension LoginVC {
             navigationController?.dismiss(animated: true)
         })
         
-        title = "Log In"
         view.backgroundColor = .systemBackground
         emailTF.delegate = self
         passwordTF.delegate = self
-        faceBookLoginButton.delegate = self
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(didTapRegister))
+        
         view.addSubview(scrollView)
-        scrollView.addSubViews(imageView,emailTF,passwordTF,logginButton,orLabel,faceBookLoginButton,googleLoginButton)
-        logginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-        googleLoginButton.addTarget(self, action: #selector(googleLoginButtonTapped), for: .touchUpInside)
+        scrollView.addSubViews(imageView,emailTF,passwordTF,logginButton,orLabel,appleLoginButton,faceBookLoginButton,googleLoginButton,registerButton)
     }
     
     private func configureLayout() {
@@ -207,16 +272,29 @@ extension LoginVC {
                                width: scrollView.width - 60,
                                height: 52)
         
+        appleLoginButton.center = scrollView.center
+        appleLoginButton.frame = CGRect(x: 25,
+                                        y: orLabel.bottom + 10,
+                                        width: scrollView.width - 60,
+                                        height: 52)
+        
         faceBookLoginButton.center = scrollView.center
         faceBookLoginButton.frame = CGRect(x: 25,
-                                           y: orLabel.bottom + 10,
+                                           y: appleLoginButton.bottom + 10,
                                            width: scrollView.width - 60,
                                            height: 52)
         
-        googleLoginButton.frame = CGRect(x: 30,
-                                         y: faceBookLoginButton.bottom + 20,
+        googleLoginButton.center = scrollView.center
+        googleLoginButton.frame = CGRect(x: 25,
+                                         y: faceBookLoginButton.bottom + 10,
                                          width: scrollView.width - 60,
                                          height: 52)
+        
+        registerButton.center = scrollView.center
+        registerButton.frame = CGRect(x: 25,
+                                      y: googleLoginButton.bottom + 50,
+                                      width: scrollView.width - 60,
+                                      height: 52)
     }
 }
 
@@ -226,27 +304,26 @@ extension LoginVC: UITextFieldDelegate {
         if textField == emailTF {
             passwordTF.becomeFirstResponder()
         }else if textField == passwordTF {
-            loginButtonTapped()
+            loginAction()
         }
         return true
     }
-    
 }
 
-//MARK: Facebook LoginButtonDelegate
-extension LoginVC: LoginButtonDelegate {
-    func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
-        guard let token = result?.token?.tokenString else {
-            print("User failed to log in with facebook")
-            return
+extension LoginVC: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            viewModel.singInWithApple(appleIDCredential: appleIDCredential)
         }
-        viewModel.singInWithFacebook(token: token)
     }
     
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
-        //no operation
-        
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        viewModel.error?("Apple Sign-In failed: \(error.localizedDescription)")
     }
-    
-    
+}
+
+extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window!
+    }
 }
