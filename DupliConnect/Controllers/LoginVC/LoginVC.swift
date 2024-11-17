@@ -31,6 +31,7 @@ final class LoginVC: BaseVC {
         let tf = UITextField()
         tf.autocapitalizationType = .none
         tf.autocorrectionType = .no
+        tf.keyboardType = .emailAddress
         tf.returnKeyType = .continue
         tf.layer.cornerRadius = 12
         tf.layer.borderColor = UIColor.lightGray.cgColor

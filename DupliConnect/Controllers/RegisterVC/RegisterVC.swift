@@ -38,7 +38,7 @@ final class RegisterVC: BaseVC {
         tf.layer.cornerRadius = 12
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.layer.borderWidth = 1
-        tf.placeholder = "First Name..."
+        tf.placeholder = " Name"
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
         tf.backgroundColor = .secondarySystemBackground
@@ -53,7 +53,7 @@ final class RegisterVC: BaseVC {
         tf.layer.cornerRadius = 12
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.layer.borderWidth = 1
-        tf.placeholder = "Last Name..."
+        tf.placeholder = " Surname"
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
         tf.backgroundColor = .secondarySystemBackground
@@ -64,11 +64,12 @@ final class RegisterVC: BaseVC {
         let tf = UITextField()
         tf.autocapitalizationType = .none
         tf.autocorrectionType = .no
+        tf.keyboardType = .emailAddress
         tf.returnKeyType = .continue
         tf.layer.cornerRadius = 12
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.layer.borderWidth = 1
-        tf.placeholder = "Email Address..."
+        tf.placeholder = " Email"
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
         tf.backgroundColor = .secondarySystemBackground
@@ -83,7 +84,7 @@ final class RegisterVC: BaseVC {
         tf.layer.cornerRadius = 12
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.layer.borderWidth = 1
-        tf.placeholder = "Password..."
+        tf.placeholder = " Password"
         tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         tf.leftViewMode = .always
         tf.backgroundColor = .secondarySystemBackground

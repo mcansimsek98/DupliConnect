@@ -12,20 +12,7 @@ import GoogleSignIn
 
 class ProfileVM {
     var signOut: ((Bool) -> ())?
-    var userData: (([ProfileModel]) -> ())?
-    
-    func getUserData() {
-        let data = [
-            ProfileModel(ProfileViewModelType: .info, title: "Name: \(UserDefaults.standard.value(forKey: "name")as? String ?? "No Name")", handler: nil),
-            ProfileModel(ProfileViewModelType: .info, title: "Email: \(UserDefaults.standard.value(forKey: "email")as? String ?? "No Email")", handler: nil),
-            ProfileModel(ProfileViewModelType: .logout, title: "Log Out", handler: { [weak self] in
-                self?.signOut?(true)
-            })
-        ]
-        DispatchQueue.main.async { [weak self] in
-            self?.userData?(data)
-        }
-    }
+
     
     func singOutUser(completion: @escaping (Bool) -> Void) {
         UserDefaults.standard.setValue(nil, forKey: "email")

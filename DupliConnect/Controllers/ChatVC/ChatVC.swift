@@ -250,7 +250,7 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
         if sender.senderId == selfSender?.senderId {
             return .link
         }
-        return .lightText
+        return .systemGray6
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {

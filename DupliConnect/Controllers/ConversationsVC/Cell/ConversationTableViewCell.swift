@@ -62,7 +62,7 @@ final class ConversationTableViewCell: UITableViewCell {
     
     public func configure(with model: Conversation) {
         userNameLbl.text = model.name
-        userMessageLbl.text = model.latestMessage.text
+        userMessageLbl.text = model.latestMessage.text.contains("message_images") ? "📷 Image" : model.latestMessage.text
         let path = "images/\(model.otherUserEmail)_profile_picture.png"
         StorageManager.shared.downloadUrl(for: path, complation: { [weak self] result in
             switch result {

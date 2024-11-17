@@ -18,6 +18,7 @@ final class NewConversationVC: BaseVC {
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search for Users..."
+        searchBar.backgroundColor = .systemBackground
         return searchBar
     }()
     
@@ -43,6 +44,7 @@ final class NewConversationVC: BaseVC {
         super.viewDidLoad()
         configure()
         bindViewModel()
+        viewModel.getUsers()
     }
     
     override func viewDidLayoutSubviews() {
@@ -105,10 +107,7 @@ extension NewConversationVC {
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(didTapCancelButton))
-        searchBar.becomeFirstResponder()
     }
-    
-    
 }
 
 // MARK: UISearchBarDelegate

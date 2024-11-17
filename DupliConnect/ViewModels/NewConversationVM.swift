@@ -15,6 +15,26 @@ class NewConversationVM {
     
     private var hasFetched = false
     
+    func getUsers() {
+        DatabaseManager.shared.getAllUsers(completion: { [weak self] result in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .success(let users):
+                strongSelf.hasFetched = true
+                
+                strongSelf.filterUsers?(users.compactMap({
+                    guard let email = $0["email"],
+                          let name = $0["name"] else {
+                        return nil
+                    }
+                    return SearchResult(name: name, email: email)
+                }).sorted(by: {$0.name < $1.name}))
+            case .failure(let err):
+                strongSelf.error?(err.localizedDescription)
+            }
+        })
+    }
+    
     func searchUsers(query: String) {
         if hasFetched {
             
