@@ -611,6 +611,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44MZ84GM49;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DupliConnect/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
@@ -641,6 +642,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44MZ84GM49;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DupliConnect/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";

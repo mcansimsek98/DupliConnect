@@ -26,7 +26,6 @@ final class ProfileVC: BaseVC {
         let nameLbl = UILabel()
         nameLbl.font = .boldSystemFont(ofSize: 20)
         nameLbl.textColor = .label
-        nameLbl.text = UserDefaults.standard.value(forKey: "name") as? String ?? "No Name"
         return nameLbl
     }()
     
@@ -54,12 +53,12 @@ final class ProfileVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        bindeViewModel()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureLayout()
-        bindeViewModel()
     }
     
     private func configure() {
@@ -69,6 +68,8 @@ final class ProfileVC: BaseVC {
     
 
     private func bindeViewModel() {
+        nameLbl.text = UserDefaults.standard.value(forKey: "name") as? String ?? "No Name"
+
         viewModel.fetchUserPhoto { [weak self] url in
             guard let self, let url else {
                 self?.userImageView.image = nil
