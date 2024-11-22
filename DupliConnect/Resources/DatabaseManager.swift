@@ -324,7 +324,7 @@ extension DatabaseManager {
                                     otherUserEmail: otherUserEmail,
                                     latestMessage: latesMessageObject)
             })
-            completion(.success(conversations))
+            completion(.success(conversations.sorted(by: {$0.latestMessage.date > $1.latestMessage.date})))
         })
     }
     
