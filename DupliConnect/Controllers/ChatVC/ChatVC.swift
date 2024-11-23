@@ -275,7 +275,7 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
                 avatarView.downloadImage(url: otherUserImageURL)
             }else {
                 viewModel.getAvatarImage(email: otherUserEmail) { [weak self] url in
-                    self?.senderPhotoURL = url
+                    self?.otherUserPhotoURL = url
                     DispatchQueue.main.async {
                         avatarView.downloadImage(url: url)
                     }
