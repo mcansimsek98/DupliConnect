@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct Conversation {
+struct Conversation: Equatable {
     let id: String
     let name: String
     let otherUserEmail: String
     let latestMessage: LatestMessage
+    
+    static func == (lhs: Conversation, rhs: Conversation) -> Bool {
+        return lhs.id == rhs.id
+    }
 }

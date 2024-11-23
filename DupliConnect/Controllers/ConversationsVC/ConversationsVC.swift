@@ -83,18 +83,42 @@ final class ConversationsVC: BaseVC {
         let safeUserEmail = DatabaseManager.safeEmail(emailAddress: email)
         DatabaseManager.shared.getAllConversations(for: safeUserEmail, completion: { [weak self] result in
             switch result {
-            case.success(let conversations):
-                guard !conversations.isEmpty else {
+            case .success(let newConversations):
+                guard !newConversations.isEmpty else {
                     self?.tableView.isHidden = true
                     self?.noConversationsLabel.isHidden = false
                     return
                 }
+                
                 self?.tableView.isHidden = false
                 self?.noConversationsLabel.isHidden = true
-                self?.conversations = conversations
+
+                let oldConversations = self?.conversations ?? []
+                self?.conversations = newConversations
+                
+                let oldIds = Set(oldConversations.map { $0.id })
+                let newIds = Set(newConversations.map { $0.id })
+                
+                let addedIds = newIds.subtracting(oldIds)
+                let addedIndexPaths = newConversations.enumerated()
+                    .compactMap { index, conversation in
+                        addedIds.contains(conversation.id) ? IndexPath(row: index, section: 0) : nil
+                    }
+
+                let updatedIndexPaths = newConversations.enumerated()
+                    .compactMap { index, conversation in
+                        guard let oldIndex = oldConversations.firstIndex(where: { $0.id == conversation.id }),
+                              conversation != oldConversations[oldIndex] else {
+                            return IndexPath(row: 0, section: 0)
+                        }
+                        return IndexPath(row: index, section: 0)
+                    }
+
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData()
+                    self?.tableView.insertRows(at: addedIndexPaths, with: .automatic)
+                    self?.tableView.reloadRows(at: updatedIndexPaths, with: .automatic)
                 }
+
             case .failure(let err):
                 self?.tableView.isHidden = true
                 self?.noConversationsLabel.isHidden = false
