@@ -12,6 +12,7 @@
     <img src="https://img.shields.io/badge/Firebase-Storage-yellow" alt="Firebase Storage">
     <img src="https://img.shields.io/badge/Google%20SignIn-Enabled-blue" alt="Google Sign-In">
     <img src="https://img.shields.io/badge/Apple%20SignIn-Enabled-black" alt="Apple Sign-In">
+    <img src="https://img.shields.io/badge/Facebook%20SignIn-Enabled-%234267B2" alt="Facebook Sign-In">
     <img src="https://img.shields.io/badge/MessageKit-Chat%20UI-purple" alt="MessageKit">
     <img src="https://img.shields.io/badge/SDWebImage-Image%20Setting-lightgrey" alt="SDWebImage">
 </p>
